@@ -1,18 +1,25 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional
 
 
-class ProductCreate(BaseModel):
-    product_name: str = Field(..., min_length=1)
-    category: Optional[str] = None
+class ProductInput(BaseModel):
+    product_name: Optional[str] = None
     brand: Optional[str] = None
+
+    mrp: Optional[str] = None
+    net_quantity: Optional[str] = None
+
     manufacturer: Optional[str] = None
+    manufacturer_address: Optional[str] = None
 
+    importer: Optional[str] = None
+    importer_address: Optional[str] = None
 
-class ProductResponse(BaseModel):
-    id: int
-    product_name: str
-    category: Optional[str]
-    brand: Optional[str]
-    manufacturer: Optional[str]
-    created_at: Optional[str] = None
+    country_of_origin: Optional[str] = None
+
+    customer_care: Optional[str] = None
+
+    manufacturing_date: Optional[str] = None
+    expiry_date: Optional[str] = None
+
+    raw_text: Optional[str] = None
