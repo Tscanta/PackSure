@@ -1,3 +1,8 @@
+![Version](https://img.shields.io/badge/version-v0.1.0-blue)
+![Python](https://img.shields.io/badge/python-3.11+-yellow)
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 # 📦 PackSure
 
 > An automated compliance inspection system for packaged commodities under Legal Metrology regulations.
