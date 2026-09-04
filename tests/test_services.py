@@ -1,6 +1,6 @@
-from database.services import list_products
-from database.services import find_product
-from database.services import add_product
+from backend.database.services import list_products
+from backend.database.services import find_product
+from backend.database.services import add_product
 
 
 print("\n===== ALL PRODUCTS =====")

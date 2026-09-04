@@ -1,5 +1,4 @@
-from database.models import Product
-
+from backend.database.models import Product
 
 product = Product(
     id=1,
