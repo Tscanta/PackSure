@@ -1,0 +1,57 @@
+[
+    {
+        "rule_id": "LMPC-001",
+        "category": "PACKAGED_COMMODITY",
+        "requirement": "Manufacturer address",
+        "description": "Package must display the name and address of the manufacturer/packer/importer as applicable.",
+        "mandatory": true,
+        "validation_type": "ADDRESS",
+        "severity": "HIGH",
+        "source": "Legal Metrology",
+        "effective_date": "2026-01-01"
+    },
+    {
+        "rule_id": "LMPC-002",
+        "category": "PACKAGED_COMMODITY",
+        "requirement": "Net quantity",
+        "description": "Package must display the net quantity of the commodity.",
+        "mandatory": true,
+        "validation_type": "QUANTITY",
+        "severity": "CRITICAL",
+        "source": "Legal Metrology",
+        "effective_date": "2026-01-01"
+    },
+    {
+        "rule_id": "LMPC-003",
+        "category": "PACKAGED_COMMODITY",
+        "requirement": "Maximum retail price",
+        "description": "Package must display the applicable maximum retail price.",
+        "mandatory": true,
+        "validation_type": "CURRENCY",
+        "severity": "CRITICAL",
+        "source": "Legal Metrology",
+        "effective_date": "2026-01-01"
+    },
+    {
+        "rule_id": "LMPC-004",
+        "category": "PACKAGED_COMMODITY",
+        "requirement": "Consumer care details",
+        "description": "Package must provide the required consumer contact information.",
+        "mandatory": true,
+        "validation_type": "PHONE",
+        "severity": "MEDIUM",
+        "source": "Legal Metrology",
+        "effective_date": "2026-01-01"
+    },
+    {
+        "rule_id": "LMPC-005",
+        "category": "PACKAGED_COMMODITY",
+        "requirement": "Date declaration",
+        "description": "Package must display the applicable date declaration where required.",
+        "mandatory": true,
+        "validation_type": "DATE",
+        "severity": "MEDIUM",
+        "source": "Legal Metrology",
+        "effective_date": "2026-01-01"
+    }
+]
