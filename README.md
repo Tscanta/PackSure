@@ -3,11 +3,14 @@
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+<img width="130" height="130" alt="logo" src="https://github.com/user-attachments/assets/f05366e1-d7f3-46f4-823d-1ec5c5cae93d" />
+
 # 📦 PackSure
 
 > An automated compliance inspection system for packaged commodities under Legal Metrology regulations.
 
 PackSure is a software system designed to assist enforcement officials in checking packaged commodities against applicable Legal Metrology requirements.
+
 
 The system combines structured product information, regulatory rules, automated validation, and inspection records to make compliance inspection faster, more consistent, explainable, and traceable.
 
