@@ -1,19 +1,16 @@
-from backend.database.models import Product, Rule, Inspection
-from backend.database.models import Product, Rule
-from backend.database.models import Product, Rule, Inspection
+from backend.database.models import (
+    Product,
+    Rule,
+    Inspection,
+    Violation
+)
+
 from backend.database.queries import (
     get_all_products,
     get_product_by_id,
     create_product,
     get_all_rules,
     get_rule_by_id
-)
-
-from backend.database.models import (
-    Product,
-    Rule,
-    Inspection,
-    Violation
 )
 
 
@@ -167,7 +164,10 @@ def create_new_inspection(
         raise ValueError("Product not found.")
 
     # Validate status
-    if overall_status not in ["COMPLIANT", "NON_COMPLIANT"]:
+    if overall_status not in [
+        "COMPLIANT",
+        "NON_COMPLIANT"
+    ]:
         raise ValueError(
             "Overall status must be COMPLIANT or NON_COMPLIANT."
         )
@@ -208,6 +208,7 @@ def get_inspection(inspection_id):
         overall_status=row[3],
         confidence=row[4]
     )
+
 
 # ============================================================
 # VIOLATION SERVICES

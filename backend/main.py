@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 
 from backend.database.services import (
@@ -11,33 +10,30 @@ from backend.database.services import (
     get_inspection,
     create_new_violation,
     get_violation,
-    list_violations
+    list_violations,
+)
+
+from backend.inspection.inspector import InspectionEngine
+from backend.inspection.persistence import save_inspection_result
+
+from schemas.product import (
+    ProductInput,
+    ProductCreate,
+    ProductResponse,
+)
+
+from schemas.rule import RuleResponse
+
+from schemas.inspection import (
+    InspectionCreate,
+    InspectionResponse,
+    InspectionResult,
 )
 
 from schemas.violation import (
     ViolationCreate,
-    ViolationResponse
+    ViolationResponse,
 )
-
-from schemas.inspection import (
-    InspectionCreate,
-    InspectionResponse
-)
-
-from backend.database.services import (
-    list_products,
-    find_product,
-    add_product,
-    list_rules,
-    find_rule
-)
-
-from schemas.product import (
-    ProductCreate,
-    ProductResponse
-)
-
-from schemas.rule import RuleResponse
 
 
 app = FastAPI(
@@ -64,9 +60,7 @@ def root():
 
 @app.get("/products")
 def get_products():
-
     products = list_products()
-
     return products
 
 
@@ -92,7 +86,10 @@ def get_product(product_id: int):
 # CREATE PRODUCT
 # ============================================================
 
-@app.post("/products", response_model=ProductResponse)
+@app.post(
+    "/products",
+    response_model=ProductResponse
+)
 def create_new_product(product: ProductCreate):
 
     try:
@@ -113,6 +110,7 @@ def create_new_product(product: ProductCreate):
             detail=str(error)
         )
 
+
 # ============================================================
 # GET ALL RULES
 # ============================================================
@@ -129,12 +127,16 @@ def get_rules():
 # GET RULE BY RULE ID
 # ============================================================
 
-@app.get("/rules/{rule_id}")
+@app.get(
+    "/rules/{rule_id}",
+    response_model=RuleResponse
+)
 def get_rule(rule_id: str):
 
     rule = find_rule(rule_id)
 
     if rule is None:
+
         raise HTTPException(
             status_code=404,
             detail="Rule not found"
@@ -142,8 +144,82 @@ def get_rule(rule_id: str):
 
     return rule
 
+
 # ============================================================
-# CREATE INSPECTION
+# RUN COMPLIANCE INSPECTION
+# ============================================================
+
+@app.post(
+    "/inspect",
+    response_model=InspectionResult
+)
+def inspect_product(product: ProductInput):
+
+    try:
+
+        # --------------------------------------------------------
+        # 1. CREATE PRODUCT RECORD
+        # --------------------------------------------------------
+
+        product_record = add_product(
+            product_name=product.product_name or "Unknown Product",
+            category="PACKAGED_COMMODITY",
+            brand=product.brand,
+            manufacturer=product.manufacturer
+        )
+
+        # --------------------------------------------------------
+        # 2. GET DATABASE PRODUCT ID
+        # --------------------------------------------------------
+
+        if isinstance(product_record, dict):
+
+            product_id = product_record["id"]
+
+        else:
+
+            product_id = product_record.id
+
+        # --------------------------------------------------------
+        # 3. RUN INSPECTION ENGINE
+        # --------------------------------------------------------
+
+        engine = InspectionEngine()
+
+        result = engine.inspect(product)
+
+        # --------------------------------------------------------
+        # 4. SAVE INSPECTION + VIOLATIONS
+        # --------------------------------------------------------
+
+        save_inspection_result(
+            product_id=product_id,
+            inspection_result=result
+        )
+
+        # --------------------------------------------------------
+        # 5. RETURN RESULT
+        # --------------------------------------------------------
+
+        return result
+
+    except ValueError as error:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
+
+    except Exception as error:
+
+        raise HTTPException(
+            status_code=500,
+            detail=f"Inspection failed: {str(error)}"
+        )
+
+
+# ============================================================
+# CREATE INSPECTION MANUALLY
 # ============================================================
 
 @app.post(
@@ -185,12 +261,14 @@ def get_inspection_endpoint(inspection_id: int):
     inspection = get_inspection(inspection_id)
 
     if inspection is None:
+
         raise HTTPException(
             status_code=404,
             detail="Inspection not found"
         )
 
     return inspection
+
 
 # ============================================================
 # CREATE VIOLATION
@@ -238,6 +316,7 @@ def get_violation_endpoint(violation_id: int):
     violation = get_violation(violation_id)
 
     if violation is None:
+
         raise HTTPException(
             status_code=404,
             detail="Violation not found"
@@ -258,6 +337,7 @@ def get_inspection_violations(inspection_id: int):
     inspection = get_inspection(inspection_id)
 
     if inspection is None:
+
         raise HTTPException(
             status_code=404,
             detail="Inspection not found"

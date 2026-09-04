@@ -6,12 +6,12 @@ load_dotenv()
 
 
 def get_connection():
-    connection = psycopg.connect(
-        host=os.getenv("POSTGRES_HOST"),
-        port=os.getenv("POSTGRES_PORT"),
-        dbname=os.getenv("POSTGRES_DB"),
-        user=os.getenv("POSTGRES_USER"),
-        password=os.getenv("POSTGRES_PASSWORD")
-    )
+    database_url = os.getenv("DATABASE_URL")
 
-    return connection
+    if not database_url:
+        raise RuntimeError(
+            "DATABASE_URL is not set. "
+            "Please create a .env file in the project root."
+        )
+
+    return psycopg.connect(database_url)

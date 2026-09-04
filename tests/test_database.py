@@ -1,7 +1,25 @@
-from database.queries import get_all_products
+from backend.database.connection import get_connection
 
 
-products = get_all_products()
+conn = get_connection()
+cur = conn.cursor()
 
-for product in products:
-    print(product)
+cur.execute(
+    """
+    SELECT table_schema, table_name
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+    ORDER BY table_name
+    """
+)
+
+tables = cur.fetchall()
+
+print("TABLES VISIBLE TO PACKSHO:")
+print()
+
+for table in tables:
+    print(table)
+
+cur.close()
+conn.close()
