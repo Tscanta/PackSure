@@ -13,14 +13,12 @@ def clean_text(value: str) -> str:
     if not value:
         return ""
 
-    # Common OCR artifacts
     value = value.replace("|", " ")
     value = value.replace("@", " ")
 
-    # Normalize whitespace
-    value = " ".join(value.split())
+    # Fix a few common OCR spacing problems
+    value = re.sub(r"\s+", " ", value)
 
-    # Remove unwanted punctuation at the ends
     return value.strip(" ,.-|")
 
 
@@ -45,9 +43,7 @@ def clean_address(value: str) -> str:
         flags=re.IGNORECASE,
     )[0]
 
-    value = clean_text(value)
-
-    return value
+    return clean_text(value)
 
 
 # ============================================================
@@ -56,27 +52,13 @@ def clean_address(value: str) -> str:
 
 def extract_product_data(text: str) -> Product:
     """
-    Extract structured product information from OCR text.
+    Convert normalized/raw OCR text into a structured Product.
 
-    Pipeline:
-        OCR text
-            ↓
-        MRP
-        Quantity
-        Category
-        Product name
-        Ingredients
-        Allergens
-        Best before
-        Manufacturer
-        Manufacturer address
-        Importer / marketer
-        Country of origin
-        FSSAI licence
-        Customer care
-        Manufacturing date
-            ↓
-        Product
+    OCR
+      ↓
+    Parser
+      ↓
+    Product
     """
 
     if not text:
@@ -92,8 +74,7 @@ def extract_product_data(text: str) -> Product:
         r"(?:MRP|M\.R\.P\.?)"
         r".{0,50}?"
         r"(?:₹|Rs\.?|INR)?"
-        r"\s*"
-        r"(\d+(?:\.\d+)?)",
+        r"\s*(\d+(?:\.\d+)?)",
         text,
         re.IGNORECASE | re.DOTALL,
     )
@@ -155,7 +136,6 @@ def extract_product_data(text: str) -> Product:
             flavour_match.group(1)
         )
 
-        # Avoid meaningless OCR captures
         if flavour.upper() not in {
             "PRODUCT",
             "NATURAL",
@@ -195,14 +175,12 @@ def extract_product_data(text: str) -> Product:
 
             upper_line = line.upper()
 
-            # Stop once declarations begin
             if any(
                 keyword in upper_line
                 for keyword in stop_keywords
             ):
                 break
 
-            # Ignore obvious OCR garbage
             if re.fullmatch(
                 r"[\d\s\-:/.,]+",
                 line,
@@ -235,7 +213,7 @@ def extract_product_data(text: str) -> Product:
 
         ingredients = ingredients_match.group(1)
 
-        # Remove allergen statements from ingredient field
+        # Remove allergen declarations
         ingredients = re.sub(
             r"\[?\s*CONTAINS\s*"
             r"(?:SOY|MILK|WHEAT|EGG|PEANUT|"
@@ -245,7 +223,15 @@ def extract_product_data(text: str) -> Product:
             flags=re.IGNORECASE,
         )
 
-        # Remove OCR artefacts
+        # Fix OCR punctuation
+        ingredients = re.sub(
+            r"\(\s*CONTAINS\s*\.\s*",
+            "(CONTAINS ",
+            ingredients,
+            flags=re.IGNORECASE,
+        )
+
+        # Remove common OCR artefacts
         ingredients = re.sub(
             r"\s+\d+\s*[A-Z]\s*$",
             "",
@@ -285,7 +271,7 @@ def extract_product_data(text: str) -> Product:
     for match in contains_matches:
         allergen_text.append(match.upper())
 
-    # OCR joined forms:
+    # Joined OCR forms:
     # CONTAINSSOY
     # CONTAINSMILK
     # CONTAINSWHEAT
@@ -333,28 +319,6 @@ def extract_product_data(text: str) -> Product:
             product.best_before = best_before
 
     # ========================================================
-    # BEST BEFORE FALLBACK
-    # ========================================================
-
-    if not product.best_before:
-
-        best_before_match = re.search(
-            r"BEST\s+BEFORE\s+"
-            r"(.*?FROM\s+MANUFACTURE)",
-            text,
-            re.IGNORECASE | re.DOTALL,
-        )
-
-        if best_before_match:
-
-            best_before = clean_text(
-                best_before_match.group(1)
-            )
-
-            if best_before:
-                product.best_before = best_before
-
-    # ========================================================
     # MANUFACTURER
     # ========================================================
 
@@ -365,7 +329,7 @@ def extract_product_data(text: str) -> Product:
         r"\s*[:\-]?\s*"
         r"(.*?)"
         r"(?=,\s*(?:AT\s*)?[A-Z][A-Z\s\-]*"
-        r"(?:ROAD|ROAD,|NAGAR|AREA|INDUSTRIAL|"
+        r"(?:ROAD|NAGAR|AREA|INDUSTRIAL|"
         r"ESTATE|PARK)\b|"
         r",\s*[A-Z][A-Z\s]+\s*-\s*\d{6}|"
         r"\bLIC\.?\s*NO\b|"
@@ -380,7 +344,6 @@ def extract_product_data(text: str) -> Product:
             manufacturer_match.group(1)
         )
 
-        # Remove accidental trailing comma
         manufacturer = manufacturer.rstrip(",")
 
         if manufacturer:
@@ -409,12 +372,9 @@ def extract_product_data(text: str) -> Product:
 
     if manufacturer_block_match:
 
-        address = manufacturer_block_match.group(
-            "address"
+        address = clean_address(
+            manufacturer_block_match.group("address")
         )
-
-        # Clean licence number and OCR noise
-        address = clean_address(address)
 
         if address:
             product.manufacturer_address = address
@@ -448,38 +408,85 @@ def extract_product_data(text: str) -> Product:
     # IMPORTER / MARKETER / DISTRIBUTOR
     # ========================================================
 
-    importer_match = re.search(
+    importer_block_match = re.search(
         r"(?:IMPORTED\s*BY|"
         r"IMPORTER|"
         r"MARKETED\s*(?:AND\s*)?"
         r"DISTRIBUTED\s*BY)"
         r"\s*[:\-]?\s*"
-        r"(?P<name>.*?)"
-        r"(?=\n|"
-        r"\bLIC\.?\s*NO\b|"
+        r"(?P<block>.*?)"
+        r"(?=\n\s*(?:FOR\s+CONSUMER|"
+        r"FOR\s+CUSTOMER|"
+        r"FOR\s+MFD)|"
         r"$)",
         text,
         re.IGNORECASE | re.DOTALL,
     )
 
-    if importer_match:
+    if importer_block_match:
 
-        importer = clean_text(
-            importer_match.group("name")
+        importer_block = clean_text(
+            importer_block_match.group("block")
         )
 
-        # Remove address accidentally captured
-        importer = re.split(
-            r",\s*\d+[A-Z0-9\-]*\s*,",
-            importer,
+        # Remove licence number from the end
+        importer_block = re.split(
+            r"\bLIC\.?\s*NO\.?\s*[:\-]?\s*\d{10,15}",
+            importer_block,
             maxsplit=1,
             flags=re.IGNORECASE,
         )[0]
 
-        importer = clean_text(importer)
+        importer_block = clean_text(
+            importer_block
+        )
 
-        if importer:
-            product.importer = importer
+        if importer_block:
+
+            # ------------------------------------------------
+            # Separate company name from address.
+            #
+            # Example:
+            # MARS INTERNATIONAL INDIA PVT. LTD.,
+            # 4658-A, NO. 21, ANSARI ROAD,
+            # DARYA GANJ, NEW DELHI - 110 002
+            # ------------------------------------------------
+
+            address_start = re.search(
+                r",\s*(?=\d+[A-Z0-9\-]*\s*,)",
+                importer_block,
+                re.IGNORECASE,
+            )
+
+            if address_start:
+
+                importer_name = importer_block[
+                    :address_start.start()
+                ]
+
+                importer_address = importer_block[
+                    address_start.end(): 
+                ]
+
+                importer_name = clean_text(
+                    importer_name
+                )
+
+                importer_address = clean_address(
+                    importer_address
+                )
+
+                if importer_name:
+                    product.importer = importer_name
+
+                if importer_address:
+                    product.importer_address = importer_address
+
+            else:
+
+                # If no obvious address boundary exists,
+                # preserve the whole block as importer name.
+                product.importer = importer_block
 
     # ========================================================
     # COUNTRY OF ORIGIN
@@ -532,7 +539,6 @@ def extract_product_data(text: str) -> Product:
     # CUSTOMER CARE
     # ========================================================
 
-    # First look specifically for CALL AT.
     phone_match = re.search(
         r"(?:CALL\s*AT)"
         r"\s*[:\-]?\s*"
@@ -541,7 +547,6 @@ def extract_product_data(text: str) -> Product:
         re.IGNORECASE,
     )
 
-    # Fallback to customer service / contact declarations.
     if not phone_match:
 
         phone_match = re.search(
@@ -549,21 +554,18 @@ def extract_product_data(text: str) -> Product:
             r"CUSTOMER\s*SERVICE|"
             r"CONSUMER\s*QUERIES|"
             r"CONTACT)"
-            r"\s*[:\-]?\s*"
+            r".{0,100}?"
             r"(\+?\d[\d\s\-().]{8,}\d)",
             text,
-            re.IGNORECASE,
+            re.IGNORECASE | re.DOTALL,
         )
 
     if phone_match:
 
-        phone = phone_match.group(1)
-
-        # Keep only digits and optional +
         phone = re.sub(
             r"[^\d+]",
             "",
-            phone,
+            phone_match.group(1),
         )
 
         if phone:
@@ -591,7 +593,7 @@ def extract_product_data(text: str) -> Product:
         )
 
     # ========================================================
-    # RETURN
+    # RETURN STRUCTURED PRODUCT
     # ========================================================
 
     return product
