@@ -1,8 +1,7 @@
 import re
 
 from schemas.product import ProductInput
-from schemas.inspection import CheckResult
-
+from backend.inspection.result import CheckResult
 
 # ============================================================
 # PRODUCT NAME
