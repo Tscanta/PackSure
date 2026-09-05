@@ -33,6 +33,11 @@ class Rule:
     severity: Optional[str]
     source: Optional[str]
     effective_date: Optional[date]
+
+    legal_reference: Optional[str]
+    applicability: Optional[str]
+    exceptions: Optional[str]
+
     created_at: Optional[datetime] = None
 
 

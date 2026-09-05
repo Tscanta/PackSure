@@ -3,7 +3,7 @@ from backend.database.rule_importer import (
 )
 
 
-file_path = "data/rules.json"
+file_path = "rules/legal_metrology_rules.json"
 
 
 result = import_rules_from_json(file_path)

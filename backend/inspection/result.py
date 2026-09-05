@@ -7,22 +7,18 @@ CheckStatus = Literal[
     "PASS",
     "FAIL",
     "WARNING",
-    "REVIEW"
+    "REVIEW",
+    "NOT_APPLICABLE",
 ]
-
 
 OverallStatus = Literal[
     "COMPLIANT",
     "NON_COMPLIANT",
-    "REVIEW_REQUIRED"
+    "REVIEW_REQUIRED",
 ]
 
 
 class CheckResult(BaseModel):
-    """
-    Result of a single compliance rule check.
-    """
-
     field: str
 
     status: CheckStatus
@@ -42,24 +38,21 @@ class CheckResult(BaseModel):
     confidence: Optional[float] = Field(
         default=None,
         ge=0,
-        le=100
+        le=100,
     )
 
     evidence: Optional[str] = None
 
 
 class InspectionResult(BaseModel):
-    """
-    Complete result of inspecting one product.
-    """
-
     inspection_id: str
 
     overall_status: OverallStatus
 
     score: float = Field(
+        default=0,
         ge=0,
-        le=100
+        le=100,
     )
 
     total_checks: int = 0

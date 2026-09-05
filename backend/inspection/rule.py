@@ -1,8 +1,5 @@
 """
-Rule-level validation interface for PackSho.
-
-Legal requirements are stored in the rule dataset / Supabase.
-This module exposes the technical validators used by the inspection engine.
+PackSho rule validation interface.
 """
 
 from backend.inspection.validator import (

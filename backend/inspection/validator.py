@@ -1,30 +1,102 @@
-import re
+"""
+PackSho Inspection Validators
 
-from schemas.product import ProductInput
+This module contains the technical validation functions used by
+the PackSho compliance inspection system.
+
+IMPORTANT:
+- Legal requirements are stored in the rule dataset / Supabase.
+- This module contains HOW a detected product value is checked.
+- It does not hard-code the complete legal rule database.
+"""
+
+import re
+from typing import Any
+
 from backend.inspection.result import CheckResult
+
+
+# ============================================================
+# GENERIC HELPERS
+# ============================================================
+
+def _get_value(product: Any, *field_names: str) -> Any:
+    """Return the first non-empty value found on a product object/dict."""
+
+    for field_name in field_names:
+
+        if isinstance(product, dict):
+            value = product.get(field_name)
+        else:
+            value = getattr(product, field_name, None)
+
+        if value is not None and str(value).strip() != "":
+            return value
+
+    return None
+
+
+def _text(value: Any) -> str:
+    """Convert a value to clean text."""
+
+    if value is None:
+        return ""
+
+    return str(value).strip()
+
+
+def _result(
+    field: str,
+    status: str,
+    message: str,
+    *,
+    rule_id: str | None = None,
+    severity: str | None = None,
+    mandatory: bool = False,
+    detected_value: Any = None,
+    expected_value: Any = None,
+    confidence: float | None = None,
+    evidence: str | None = None,
+) -> CheckResult:
+
+    return CheckResult(
+        field=field,
+        status=status,
+        message=message,
+        rule_id=rule_id,
+        severity=severity,
+        mandatory=mandatory,
+        detected_value=None if detected_value is None else str(detected_value),
+        expected_value=None if expected_value is None else str(expected_value),
+        confidence=confidence,
+        evidence=evidence,
+    )
+
 
 # ============================================================
 # PRODUCT NAME
 # ============================================================
 
-def check_product_name(product: ProductInput) -> CheckResult:
+def check_product_name(product: Any) -> CheckResult:
 
-    if (
-        product.product_name is None
-        or product.product_name.strip() == ""
-    ):
-        return CheckResult(
-            field="product_name",
-            status="FAIL",
-            message="Product name is missing",
-            rule_id="TEST001"
+    value = _get_value(product, "product_name")
+
+    if not value:
+        return _result(
+            "product_name",
+            "FAIL",
+            "Product name is missing.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    return CheckResult(
-        field="product_name",
-        status="PASS",
-        message="Product name is present",
-        rule_id="TEST001"
+    return _result(
+        "product_name",
+        "PASS",
+        "Product name is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -32,41 +104,38 @@ def check_product_name(product: ProductInput) -> CheckResult:
 # MRP
 # ============================================================
 
-def check_mrp(product: ProductInput) -> CheckResult:
+def check_mrp(product: Any) -> CheckResult:
 
-    if product.mrp is None or product.mrp.strip() == "":
-        return CheckResult(
-            field="mrp",
-            status="FAIL",
-            message="MRP is missing",
-            rule_id="LMPC-003"
+    value = _get_value(product, "mrp")
+
+    if value is None:
+        return _result(
+            "mrp",
+            "FAIL",
+            "MRP is missing.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    mrp = product.mrp.strip()
+    text = _text(value)
 
-    normalized_mrp = re.sub(
-        r"[₹RsINR\s]",
-        "",
-        mrp,
-        flags=re.IGNORECASE
-    )
-
-    if not re.fullmatch(
-        r"\d+(?:\.\d+)?",
-        normalized_mrp
-    ):
-        return CheckResult(
-            field="mrp",
-            status="FAIL",
-            message="MRP format is invalid",
-            rule_id="LMPC-003"
+    if not re.search(r"\d", text):
+        return _result(
+            "mrp",
+            "FAIL",
+            "MRP does not contain a recognizable numeric value.",
+            severity="HIGH",
+            mandatory=True,
+            detected_value=text,
         )
 
-    return CheckResult(
-        field="mrp",
-        status="PASS",
-        message="MRP is present and has a valid numeric format",
-        rule_id="LMPC-003"
+    return _result(
+        "mrp",
+        "PASS",
+        "MRP is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=text,
     )
 
 
@@ -74,38 +143,42 @@ def check_mrp(product: ProductInput) -> CheckResult:
 # NET QUANTITY
 # ============================================================
 
-def check_net_quantity(product: ProductInput) -> CheckResult:
+def check_net_quantity(product: Any) -> CheckResult:
 
-    if (
-        product.net_quantity is None
-        or product.net_quantity.strip() == ""
-    ):
-        return CheckResult(
-            field="net_quantity",
-            status="FAIL",
-            message="Net quantity is missing",
-            rule_id="LMPC-002"
+    value = _get_value(
+        product,
+        "net_quantity",
+        "package_size",
+    )
+
+    if value is None:
+        return _result(
+            "net_quantity",
+            "FAIL",
+            "Net quantity is missing.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    quantity = product.net_quantity.strip()
+    text = _text(value)
 
-    if not re.fullmatch(
-        r"\d+(?:\.\d+)?\s*(?:mg|g|kg|ml|l)",
-        quantity,
-        re.IGNORECASE
-    ):
-        return CheckResult(
-            field="net_quantity",
-            status="FAIL",
-            message="Net quantity format is invalid",
-            rule_id="LMPC-002"
+    if not re.search(r"\d", text):
+        return _result(
+            "net_quantity",
+            "FAIL",
+            "Net quantity does not contain a recognizable numeric value.",
+            severity="HIGH",
+            mandatory=True,
+            detected_value=text,
         )
 
-    return CheckResult(
-        field="net_quantity",
-        status="PASS",
-        message="Net quantity is present and has a valid format",
-        rule_id="LMPC-002"
+    return _result(
+        "net_quantity",
+        "PASS",
+        "Net quantity is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=text,
     )
 
 
@@ -113,24 +186,30 @@ def check_net_quantity(product: ProductInput) -> CheckResult:
 # MANUFACTURER
 # ============================================================
 
-def check_manufacturer(product: ProductInput) -> CheckResult:
+def check_manufacturer(product: Any) -> CheckResult:
 
-    if (
-        product.manufacturer is None
-        or product.manufacturer.strip() == ""
-    ):
-        return CheckResult(
-            field="manufacturer",
-            status="FAIL",
-            message="Manufacturer name is missing",
-            rule_id="LMPC-MANUFACTURER"
+    value = _get_value(
+        product,
+        "manufacturer",
+        "brand_owner",
+    )
+
+    if not value:
+        return _result(
+            "manufacturer",
+            "FAIL",
+            "Manufacturer or brand-owner information is missing.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    return CheckResult(
-        field="manufacturer",
-        status="PASS",
-        message="Manufacturer name is present",
-        rule_id="LMPC-MANUFACTURER"
+    return _result(
+        "manufacturer",
+        "PASS",
+        "Manufacturer/brand-owner information is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -138,44 +217,31 @@ def check_manufacturer(product: ProductInput) -> CheckResult:
 # MANUFACTURER ADDRESS
 # ============================================================
 
-def check_manufacturer_address(
-    product: ProductInput
-) -> CheckResult:
+def check_manufacturer_address(product: Any) -> CheckResult:
 
-    if (
-        product.manufacturer_address is None
-        or product.manufacturer_address.strip() == ""
-    ):
-        return CheckResult(
-            field="manufacturer_address",
-            status="FAIL",
-            message="Manufacturer address is missing",
-            rule_id="LMPC-001"
+    value = _get_value(
+        product,
+        "manufacturer_address",
+        "brand_owner_address",
+        "address",
+    )
+
+    if not value:
+        return _result(
+            "manufacturer_address",
+            "FAIL",
+            "Manufacturer/brand-owner address is missing.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    address = product.manufacturer_address.strip()
-
-    if len(address) < 10:
-        return CheckResult(
-            field="manufacturer_address",
-            status="FAIL",
-            message="Manufacturer address appears incomplete",
-            rule_id="LMPC-001"
-        )
-
-    if not re.search(r"\d|,", address):
-        return CheckResult(
-            field="manufacturer_address",
-            status="FAIL",
-            message="Manufacturer address format appears invalid",
-            rule_id="LMPC-001"
-        )
-
-    return CheckResult(
-        field="manufacturer_address",
-        status="PASS",
-        message="Manufacturer address is present",
-        rule_id="LMPC-001"
+    return _result(
+        "manufacturer_address",
+        "PASS",
+        "Manufacturer/brand-owner address is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -183,24 +249,35 @@ def check_manufacturer_address(
 # IMPORTER
 # ============================================================
 
-def check_importer(product: ProductInput) -> CheckResult:
+def check_importer(product: Any) -> CheckResult:
 
-    if (
-        product.importer is None
-        or product.importer.strip() == ""
-    ):
-        return CheckResult(
-            field="importer",
-            status="FAIL",
-            message="Importer or marketer information is missing",
-            rule_id="LMPC-IMPORTER"
+    is_imported = _get_value(product, "is_imported")
+    importer = _get_value(product, "importer")
+
+    if is_imported in (False, "False", "false", 0):
+        return _result(
+            "importer",
+            "NOT_APPLICABLE",
+            "Importer information is not applicable to a non-imported product.",
+            mandatory=False,
         )
 
-    return CheckResult(
-        field="importer",
-        status="PASS",
-        message="Importer or marketer information is present",
-        rule_id="LMPC-IMPORTER"
+    if not importer:
+        return _result(
+            "importer",
+            "REVIEW",
+            "Importer information could not be confirmed from the extracted data.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    return _result(
+        "importer",
+        "PASS",
+        "Importer information is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=importer,
     )
 
 
@@ -208,44 +285,38 @@ def check_importer(product: ProductInput) -> CheckResult:
 # IMPORTER ADDRESS
 # ============================================================
 
-def check_importer_address(
-    product: ProductInput
-) -> CheckResult:
+def check_importer_address(product: Any) -> CheckResult:
 
-    if (
-        product.importer_address is None
-        or product.importer_address.strip() == ""
-    ):
-        return CheckResult(
-            field="importer_address",
-            status="FAIL",
-            message="Importer address is missing",
-            rule_id="LMPC-IMPORTER-ADDRESS"
+    is_imported = _get_value(product, "is_imported")
+
+    if is_imported in (False, "False", "false", 0):
+        return _result(
+            "importer_address",
+            "NOT_APPLICABLE",
+            "Importer address is not applicable to a non-imported product.",
         )
 
-    address = product.importer_address.strip()
+    value = _get_value(
+        product,
+        "importer_address",
+    )
 
-    if len(address) < 10:
-        return CheckResult(
-            field="importer_address",
-            status="FAIL",
-            message="Importer address appears incomplete",
-            rule_id="LMPC-IMPORTER-ADDRESS"
+    if not value:
+        return _result(
+            "importer_address",
+            "REVIEW",
+            "Importer address could not be confirmed from the extracted data.",
+            severity="HIGH",
+            mandatory=True,
         )
 
-    if not re.search(r"\d|,", address):
-        return CheckResult(
-            field="importer_address",
-            status="FAIL",
-            message="Importer address format appears invalid",
-            rule_id="LMPC-IMPORTER-ADDRESS"
-        )
-
-    return CheckResult(
-        field="importer_address",
-        status="PASS",
-        message="Importer address is present",
-        rule_id="LMPC-IMPORTER-ADDRESS"
+    return _result(
+        "importer_address",
+        "PASS",
+        "Importer address is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -253,26 +324,34 @@ def check_importer_address(
 # COUNTRY OF ORIGIN
 # ============================================================
 
-def check_country_of_origin(
-    product: ProductInput
-) -> CheckResult:
+def check_country_of_origin(product: Any) -> CheckResult:
 
-    if (
-        product.country_of_origin is None
-        or product.country_of_origin.strip() == ""
-    ):
-        return CheckResult(
-            field="country_of_origin",
-            status="FAIL",
-            message="Country of origin is missing",
-            rule_id="LMPC-COUNTRY"
+    is_imported = _get_value(product, "is_imported")
+    value = _get_value(product, "country_of_origin")
+
+    if is_imported in (False, "False", "false", 0):
+        return _result(
+            "country_of_origin",
+            "NOT_APPLICABLE",
+            "Country-of-origin declaration is not being evaluated as an imported-product requirement.",
         )
 
-    return CheckResult(
-        field="country_of_origin",
-        status="PASS",
-        message="Country of origin is present",
-        rule_id="LMPC-COUNTRY"
+    if not value:
+        return _result(
+            "country_of_origin",
+            "FAIL",
+            "Country of origin is missing for an imported product.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    return _result(
+        "country_of_origin",
+        "PASS",
+        "Country of origin is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -280,59 +359,32 @@ def check_country_of_origin(
 # CUSTOMER CARE
 # ============================================================
 
-def check_customer_care(
-    product: ProductInput
-) -> CheckResult:
-    """
-    Accepts Indian mobile and 1800 toll-free numbers.
-    """
+def check_customer_care(product: Any) -> CheckResult:
 
-    if (
-        product.customer_care is None
-        or product.customer_care.strip() == ""
-    ):
-        return CheckResult(
-            field="customer_care",
-            status="FAIL",
-            message="Consumer-care contact information is missing",
-            rule_id="LMPC-004"
-        )
-
-    phone = product.customer_care.strip()
-
-    normalized_phone = re.sub(
-        r"[\s\-().]",
-        "",
-        phone
+    value = _get_value(
+        product,
+        "customer_care",
+        "customer_care_phone",
+        "customer_care_email",
+        "customer_care_address",
     )
 
-    mobile_pattern = r"(?:\+91)?[6-9]\d{9}"
-
-    toll_free_pattern = r"1800\d{7}"
-
-    if not (
-        re.fullmatch(
-            mobile_pattern,
-            normalized_phone
-        )
-        or
-        re.fullmatch(
-            toll_free_pattern,
-            normalized_phone
-        )
-    ):
-        return CheckResult(
-            field="customer_care",
-            status="FAIL",
-            message="Consumer-care phone number format is invalid",
-            rule_id="LMPC-004"
+    if not value:
+        return _result(
+            "customer_care",
+            "FAIL",
+            "Consumer/customer-care information is missing.",
+            severity="MEDIUM",
+            mandatory=True,
         )
 
-    return CheckResult(
-        field="customer_care",
-        status="PASS",
-        message="Consumer-care contact has a recognized Indian phone format",
-        rule_id="LMPC-004"
+    return _result(
+        "customer_care",
+        "PASS",
+        "Customer-care information is present.",
+        severity="MEDIUM",
+        mandatory=True,
+        detected_value=value,
     )
 
 
@@ -340,62 +392,295 @@ def check_customer_care(
 # DATE
 # ============================================================
 
-def check_date(product: ProductInput) -> CheckResult:
+def check_date(product: Any) -> CheckResult:
 
-    date_value = None
-
-    if (
-        product.manufacturing_date
-        and product.manufacturing_date.strip()
-    ):
-        date_value = product.manufacturing_date.strip()
-
-    elif (
-        product.expiry_date
-        and product.expiry_date.strip()
-    ):
-        date_value = product.expiry_date.strip()
-
-    if not date_value:
-        return CheckResult(
-            field="date_declaration",
-            status="FAIL",
-            message="Manufacturing or expiry date is missing",
-            rule_id="LMPC-005"
-        )
-
-    accepted_formats = [
-        "%d/%m/%Y",
-        "%m/%Y",
-        "%d-%m-%Y",
-        "%m-%Y",
-        "%d/%m/%y",
-        "%d-%m-%y",
+    fields = [
+        "manufacturing_date",
+        "packaging_date",
+        "expiry_date",
+        "best_before",
+        "use_by",
     ]
 
-    from datetime import datetime
+    found = []
 
-    for date_format in accepted_formats:
+    for field in fields:
+        value = _get_value(product, field)
 
-        try:
-            datetime.strptime(
-                date_value,
-                date_format
-            )
+        if value:
+            found.append(f"{field}: {value}")
 
-            return CheckResult(
-                field="date_declaration",
-                status="PASS",
-                message="Date declaration has a recognized format",
-                rule_id="LMPC-005"
-            )
+    if not found:
+        return _result(
+            "date",
+            "REVIEW",
+            "No recognizable date marking was extracted from the product.",
+            severity="HIGH",
+            mandatory=True,
+        )
 
-        except ValueError:
-            continue
-
-    return CheckResult(
-        field="date_declaration",
-        status="FAIL",
-        message="Date declaration format is invalid",
-        rule_id="LMPC-005"
+    return _result(
+        "date",
+        "PASS",
+        "At least one product date marking was detected.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value="; ".join(found),
     )
+
+
+# ============================================================
+# FSSAI LICENSE
+# ============================================================
+
+def check_fssai_license(product: Any) -> CheckResult:
+
+    value = _get_value(
+        product,
+        "fssai_license_number",
+        "fssai_license_no",
+        "fssai_registration_number",
+    )
+
+    if not value:
+
+        return _result(
+            "fssai_license_number",
+            "FAIL",
+            "FSSAI license/registration number is missing.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    text = _text(value)
+
+    digits = "".join(ch for ch in text if ch.isdigit())
+
+    if len(digits) != 14:
+
+        return _result(
+            "fssai_license_number",
+            "FAIL",
+            "FSSAI license/registration number should contain 14 digits.",
+            severity="HIGH",
+            mandatory=True,
+            detected_value=text,
+            expected_value="14-digit FSSAI number",
+        )
+
+    return _result(
+        "fssai_license_number",
+        "PASS",
+        "FSSAI license/registration number is present and has 14 digits.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=text,
+        expected_value="14-digit FSSAI number",
+    )
+
+
+# ============================================================
+# LOT / BATCH
+# ============================================================
+
+def check_lot_batch(product: Any) -> CheckResult:
+
+    value = _get_value(
+        product,
+        "lot_number",
+        "batch_number",
+        "lot_code",
+    )
+
+    if not value:
+        return _result(
+            "lot_batch",
+            "FAIL",
+            "Lot/batch identification is missing.",
+            severity="MEDIUM",
+            mandatory=True,
+        )
+
+    return _result(
+        "lot_batch",
+        "PASS",
+        "Lot/batch identification is present.",
+        severity="MEDIUM",
+        mandatory=True,
+        detected_value=value,
+    )
+
+
+# ============================================================
+# INGREDIENTS
+# ============================================================
+
+def check_ingredients(product: Any) -> CheckResult:
+
+    value = _get_value(
+        product,
+        "ingredients",
+        "ingredient_list",
+    )
+
+    if not value:
+        return _result(
+            "ingredients",
+            "FAIL",
+            "Ingredient information is missing.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    return _result(
+        "ingredients",
+        "PASS",
+        "Ingredient information is present.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
+    )
+
+
+# ============================================================
+# NUTRITION
+# ============================================================
+
+def check_nutrition(product: Any) -> CheckResult:
+
+    value = _get_value(
+        product,
+        "nutrition",
+        "nutrition_facts",
+    )
+
+    nutrition_fields = [
+        "energy",
+        "protein",
+        "carbohydrate",
+        "total_sugars",
+        "added_sugars",
+        "total_fat",
+        "saturated_fat",
+        "trans_fat",
+        "cholesterol",
+        "sodium",
+        "dietary_fibre",
+    ]
+
+    detected = []
+
+    if value:
+        detected.append(str(value))
+
+    for field in nutrition_fields:
+        field_value = _get_value(product, field)
+
+        if field_value is not None:
+            detected.append(f"{field}: {field_value}")
+
+    if not detected:
+        return _result(
+            "nutrition",
+            "FAIL",
+            "Nutrition information was not detected.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    return _result(
+        "nutrition",
+        "PASS",
+        "Nutrition information is present in the extracted product data.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value="; ".join(detected),
+    )
+
+
+# ============================================================
+# VEGETARIAN / NON-VEGETARIAN SYMBOL
+# ============================================================
+
+def check_veg_nonveg_symbol(product: Any) -> CheckResult:
+
+    value = _get_value(
+        product,
+        "veg_nonveg_symbol",
+        "food_symbol",
+        "vegetarian",
+        "non_vegetarian",
+    )
+
+    if value is None:
+        return _result(
+            "veg_nonveg_symbol",
+            "REVIEW",
+            "Vegetarian/non-vegetarian declaration could not be confirmed automatically.",
+            severity="HIGH",
+            mandatory=True,
+        )
+
+    return _result(
+        "veg_nonveg_symbol",
+        "PASS",
+        "Vegetarian/non-vegetarian declaration information was detected.",
+        severity="HIGH",
+        mandatory=True,
+        detected_value=value,
+    )
+
+
+# ============================================================
+# VISUAL REVIEW
+# ============================================================
+
+def check_visual_review(product: Any) -> CheckResult:
+
+    return _result(
+        "visual_review",
+        "REVIEW",
+        "This requirement requires visual/image inspection and cannot be reliably confirmed from structured text alone.",
+        severity="MEDIUM",
+        mandatory=True,
+    )
+
+
+# ============================================================
+# NOT AUTOMATABLE
+# ============================================================
+
+def check_not_automatable(product: Any) -> CheckResult:
+
+    return _result(
+        "manual_review",
+        "REVIEW",
+        "This requirement requires additional context, calculation, physical inspection, or manual verification.",
+        severity="MEDIUM",
+        mandatory=True,
+    )
+
+
+# ============================================================
+# PUBLIC EXPORTS
+# ============================================================
+
+__all__ = [
+    "check_product_name",
+    "check_mrp",
+    "check_net_quantity",
+    "check_manufacturer",
+    "check_manufacturer_address",
+    "check_importer",
+    "check_importer_address",
+    "check_country_of_origin",
+    "check_customer_care",
+    "check_date",
+    "check_fssai_license",
+    "check_lot_batch",
+    "check_ingredients",
+    "check_nutrition",
+    "check_veg_nonveg_symbol",
+    "check_visual_review",
+    "check_not_automatable",
+]

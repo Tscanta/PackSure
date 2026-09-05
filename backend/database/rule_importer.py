@@ -11,7 +11,7 @@ from backend.database.connection import get_connection
 def import_rules_from_json(file_path):
 
     # --------------------------------------------------------
-    # READ JSON FILE
+    # READ JSON
     # --------------------------------------------------------
 
     with open(file_path, "r", encoding="utf-8") as file:
@@ -33,14 +33,24 @@ def import_rules_from_json(file_path):
                 # ------------------------------------------------
 
                 rule_id = rule["rule_id"]
-                category = rule["category"]
+                category = rule.get("category") or "PACKAGED_COMMODITY"
                 requirement = rule["requirement"]
                 description = rule.get("description")
+
                 mandatory = rule["mandatory"]
                 validation_type = rule["validation_type"]
                 severity = rule["severity"]
+
                 source = rule.get("source")
                 effective_date = rule.get("effective_date")
+
+                # ------------------------------------------------
+                # ADDITIONAL LEGAL INFORMATION
+                # ------------------------------------------------
+
+                legal_reference = rule.get("legal_reference")
+                applicability = rule.get("applicability")
+                exceptions = rule.get("exceptions")
 
                 # ------------------------------------------------
                 # CONVERT DATE
@@ -52,10 +62,11 @@ def import_rules_from_json(file_path):
                     )
 
                 # ------------------------------------------------
-                # INSERT RULE
+                # INSERT / UPDATE RULE
                 # ------------------------------------------------
 
-                cursor.execute("""
+                cursor.execute(
+                    """
                     INSERT INTO rules
                     (
                         rule_id,
@@ -66,7 +77,10 @@ def import_rules_from_json(file_path):
                         validation_type,
                         severity,
                         source,
-                        effective_date
+                        effective_date,
+                        legal_reference,
+                        applicability,
+                        exceptions
                     )
                     VALUES
                     (
@@ -78,8 +92,12 @@ def import_rules_from_json(file_path):
                         %s,
                         %s,
                         %s,
+                        %s,
+                        %s,
+                        %s,
                         %s
                     )
+
                     ON CONFLICT (rule_id)
                     DO UPDATE SET
                         category = EXCLUDED.category,
@@ -89,18 +107,26 @@ def import_rules_from_json(file_path):
                         validation_type = EXCLUDED.validation_type,
                         severity = EXCLUDED.severity,
                         source = EXCLUDED.source,
-                        effective_date = EXCLUDED.effective_date;
-                """, (
-                    rule_id,
-                    category,
-                    requirement,
-                    description,
-                    mandatory,
-                    validation_type,
-                    severity,
-                    source,
-                    effective_date
-                ))
+                        effective_date = EXCLUDED.effective_date,
+                        legal_reference = EXCLUDED.legal_reference,
+                        applicability = EXCLUDED.applicability,
+                        exceptions = EXCLUDED.exceptions;
+                    """,
+                    (
+                        rule_id,
+                        category,
+                        requirement,
+                        description,
+                        mandatory,
+                        validation_type,
+                        severity,
+                        source,
+                        effective_date,
+                        legal_reference,
+                        applicability,
+                        exceptions,
+                    ),
+                )
 
                 imported_count += 1
 
@@ -108,15 +134,12 @@ def import_rules_from_json(file_path):
 
         return {
             "imported": imported_count,
-            "skipped": skipped_count
+            "skipped": skipped_count,
         }
 
     except Exception:
-
         connection.rollback()
-
         raise
 
     finally:
-
         connection.close()
