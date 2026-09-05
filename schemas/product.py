@@ -3,6 +3,31 @@ from typing import Optional
 from pydantic import BaseModel, Field
 
 
+class Nutrition(BaseModel):
+    """Nutrition values extracted by the existing OCR parser."""
+    serving_size: Optional[str] = None
+    calories: Optional[float] = None
+    total_fat: Optional[float] = None
+    saturated_fat: Optional[float] = None
+    trans_fat: Optional[float] = None
+    cholesterol: Optional[float] = None
+    sodium: Optional[float] = None
+    potassium: Optional[float] = None
+    total_carbohydrate: Optional[float] = None
+    dietary_fiber: Optional[float] = None
+    sugars: Optional[float] = None
+    protein: Optional[float] = None
+    vitamin_a: Optional[float] = None
+    vitamin_c: Optional[float] = None
+    vitamin_d: Optional[float] = None
+    calcium: Optional[float] = None
+    iron: Optional[float] = None
+    magnesium: Optional[float] = None
+    phosphorus: Optional[float] = None
+    niacin: Optional[float] = None
+    vitamin_b6: Optional[float] = None
+
+
 # ============================================================
 # PRODUCT INPUT
 # ============================================================
@@ -117,6 +142,8 @@ class ProductInput(BaseModel):
     fssai_license_no: Optional[str] = None
 
     fssai_registration_number: Optional[str] = None
+    # Kept for the extraction parser's historical attribute name.
+    fssai_license: Optional[str] = None
 
     # ========================================================
     # INGREDIENTS
@@ -453,3 +480,8 @@ class Product(ProductInput):
     """
 
     id: Optional[int] = None
+
+    # OCR extraction represents the parsed price as a number; API input keeps
+    # its text form so currency symbols are not discarded before inspection.
+    mrp: Optional[float | str] = None
+    nutrition: Optional[Nutrition | str] = None

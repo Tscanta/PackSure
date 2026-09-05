@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Any, Optional, List
 
 
 class CheckResult(BaseModel):
@@ -9,6 +9,11 @@ class CheckResult(BaseModel):
     rule_id: Optional[str] = None
     severity: Optional[str] = None
     mandatory: Optional[bool] = None
+    detected_value: Optional[str] = None
+    expected_value: Optional[str] = None
+    confidence: Optional[float] = None
+    evidence: Optional[str] = None
+    database_rule_id: Optional[int] = None
 
 
 class InspectionResult(BaseModel):
@@ -20,6 +25,8 @@ class InspectionResult(BaseModel):
     failed_checks: int
     warning_checks: int
     checks: List[CheckResult]
+    ocr_text: Optional[str] = None
+    extracted_product: Optional[dict[str, Any]] = None
 
 
 class InspectionCreate(BaseModel):

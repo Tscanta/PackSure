@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Evidence - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    PackSure
+                </div>
+
+                <div class="brand-tagline">
+                    Scan. Verify. Understand.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="inspections.html" class="nav-item">
+                <span class="nav-icon">▣</span>
+                <span>Inspections</span>
+            </a>
+
+            <a href="products.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="evidence-library.html" class="nav-item active">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">◒</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Admin &amp; Rules</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help &amp; Support</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>New Inspection</h1>
+
+                <p>
+                    Upload package images for evidence
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    class="notification-button"
+                    type="button"
+                >
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Legal Metrology Inspector
+                        </strong>
+
+                        <span>
+                            Inspector
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+
+            <!-- BACK LINK -->
+            <a
+                href="product-details.html"
+                class="back-link"
+            >
+                ← Back to Product Details
+            </a>
+
+
+
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        Package Evidence
+                    </h2>
+
+                    <p>
+                        Upload clear images of the product package for
+                        extraction and validation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+            <div class="inspection-progress">
+
+
+                <div class="progress-step completed">
+
+                    <div class="progress-number">
+                        ✓
+                    </div>
+
+                    <div class="progress-label">
+                        Inspection Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step completed">
+
+                    <div class="progress-number">
+                        ✓
+                    </div>
+
+                    <div class="progress-label">
+                        Product Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step active">
+
+                    <div class="progress-number">
+                        3
+                    </div>
+
+                    <div class="progress-label">
+                        Evidence
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        4
+                    </div>
+
+                    <div class="progress-label">
+                        Review
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- UPLOAD PANEL -->
+            <div class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Package Images
+                        </h2>
+
+                        <p>
+                            Upload the available views of the package.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="upload-grid">
+
+
+                    <!-- FRONT -->
+                    <div class="upload-box">
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h3>
+                            Front Package
+                        </h3>
+
+                        <p>
+                            Upload the front view of the package.
+                        </p>
+
+
+                        <div
+                            class="image-preview"
+                            id="frontPreview"
+                        ></div>
+
+
+                        <label
+                            for="frontImage"
+                            class="upload-button"
+                        >
+                            Choose Image
+                        </label>
+
+                        <input
+                            type="file"
+                            id="frontImage"
+                            accept="image/*"
+                            hidden
+                        >
+
+                    </div>
+
+
+
+                    <!-- BACK -->
+                    <div class="upload-box">
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h3>
+                            Back Package
+                        </h3>
+
+                        <p>
+                            Upload the back view of the package.
+                        </p>
+
+
+                        <div
+                            class="image-preview"
+                            id="backPreview"
+                        ></div>
+
+
+                        <label
+                            for="backImage"
+                            class="upload-button"
+                        >
+                            Choose Image
+                        </label>
+
+                        <input
+                            type="file"
+                            id="backImage"
+                            accept="image/*"
+                            hidden
+                        >
+
+                    </div>
+
+
+
+                    <!-- SIDE -->
+                    <div class="upload-box">
+
+                        <div class="upload-icon">
+                            ↑
+                        </div>
+
+                        <h3>
+                            Side Package
+                        </h3>
+
+                        <p>
+                            Upload a side view if available.
+                        </p>
+
+
+                        <div
+                            class="image-preview"
+                            id="sidePreview"
+                        ></div>
+
+
+                        <label
+                            for="sideImage"
+                            class="upload-button"
+                        >
+                            Choose Image
+                        </label>
+
+                        <input
+                            type="file"
+                            id="sideImage"
+                            accept="image/*"
+                            hidden
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INFORMATION -->
+                <div class="evidence-info">
+
+                    <strong>
+                        Evidence quality
+                    </strong>
+
+                    <p>
+                        Use clear, well-lit images where package declarations
+                        and printed information are readable.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+            <div class="form-actions">
+
+
+                <a
+                    href="product-details.html"
+                    class="secondary-button"
+                >
+                    ← Back
+                </a>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="continueEvidence"
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- EVIDENCE SCRIPT -->
+    <script>
+
+        function setupImagePreview(
+            inputId,
+            previewId
+        ) {
+
+            const input =
+                document.getElementById(
+                    inputId
+                );
+
+            const preview =
+                document.getElementById(
+                    previewId
+                );
+
+
+            if (!input || !preview) {
+                return;
+            }
+
+
+            input.addEventListener(
+                "change",
+                function () {
+
+                    const file =
+                        input.files[0];
+
+
+                    if (!file) {
+                        return;
+                    }
+
+
+                    if (
+                        !file.type.startsWith(
+                            "image/"
+                        )
+                    ) {
+
+                        alert(
+                            "Please select an image file."
+                        );
+
+                        input.value = "";
+
+                        return;
+
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            preview.innerHTML =
+                                '<img src="' +
+                                event.target.result +
+                                '" alt="Uploaded package evidence">';
+
+                            preview.style.display =
+                                "block";
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        setupImagePreview(
+            "frontImage",
+            "frontPreview"
+        );
+
+
+        setupImagePreview(
+            "backImage",
+            "backPreview"
+        );
+
+
+        setupImagePreview(
+            "sideImage",
+            "sidePreview"
+        );
+
+
+
+        /* SAVE EVIDENCE AND CONTINUE */
+
+        const continueEvidence =
+            document.getElementById(
+                "continueEvidence"
+            );
+
+
+        if (continueEvidence) {
+
+            continueEvidence.addEventListener(
+                "click",
+                function () {
+
+
+                    const frontImage =
+                        document.getElementById(
+                            "frontImage"
+                        );
+
+
+                    const backImage =
+                        document.getElementById(
+                            "backImage"
+                        );
+
+
+                    const sideImage =
+                        document.getElementById(
+                            "sideImage"
+                        );
+
+
+                    if (
+                        !frontImage.files.length &&
+                        !backImage.files.length &&
+                        !sideImage.files.length
+                    ) {
+
+                        alert(
+                            "Please upload at least one package image."
+                        );
+
+                        return;
+
+                    }
+
+
+
+                    /*
+                        Convert selected images into
+                        temporary browser data so that
+                        the Review page can display them.
+                    */
+
+                    const evidenceData = {};
+
+
+                    function readImage(
+                        input,
+                        key
+                    ) {
+
+                        return new Promise(
+                            function (
+                                resolve
+                            ) {
+
+                                if (
+                                    !input.files.length
+                                ) {
+
+                                    resolve(
+                                        null
+                                    );
+
+                                    return;
+
+                                }
+
+
+                                const file =
+                                    input.files[0];
+
+
+                                const reader =
+                                    new FileReader();
+
+
+                                reader.onload =
+                                    function (
+                                        event
+                                    ) {
+
+                                        resolve(
+                                            event.target.result
+                                        );
+
+                                    };
+
+
+                                reader.readAsDataURL(
+                                    file
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+
+                    Promise.all([
+
+                        readImage(
+                            frontImage,
+                            "front"
+                        ),
+
+                        readImage(
+                            backImage,
+                            "back"
+                        ),
+
+                        readImage(
+                            sideImage,
+                            "side"
+                        )
+
+                    ]).then(
+                        function (images) {
+
+
+                            evidenceData.front =
+                                images[0];
+
+                            evidenceData.back =
+                                images[1];
+
+                            evidenceData.side =
+                                images[2];
+
+
+                            try {
+                                localStorage.setItem(
+                                    "packSureEvidence",
+                                    JSON.stringify(evidenceData)
+                                );
+                            } catch (storageErr) {
+                                console.warn("Could not save all images to localStorage:", storageErr);
+                                // If quota exceeded, try storing only the first image
+                                try {
+                                    localStorage.setItem(
+                                        "packSureEvidence",
+                                        JSON.stringify({ front: images[0] || images[1] })
+                                    );
+                                } catch (e) {
+                                    alert("Image is too large for browser local cache, but proceeding to review.");
+                                }
+                            }
+
+                            window.location.href = "review.html";
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+</body>
+</html>

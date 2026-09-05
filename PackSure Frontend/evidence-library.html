@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Library | PackSure</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .library-page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .library-filters {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .library-filter {
+            height: 44px;
+            padding: 0 13px;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .library-filter:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(15, 139, 141, 0.10);
+        }
+
+        .evidence-library-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .library-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .library-panel-header h3 {
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-size: 17px;
+        }
+
+        .library-panel-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .evidence-count {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            padding: 22px;
+        }
+
+        .evidence-card {
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            overflow: hidden;
+            background: #FFFFFF;
+        }
+
+        .evidence-thumbnail {
+            height: 150px;
+            background: #F4F7FA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .evidence-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-image {
+            text-align: center;
+            color: #94A3B8;
+        }
+
+        .placeholder-image .placeholder-icon {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .placeholder-image span {
+            font-size: 12px;
+        }
+
+        .evidence-type {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 8px;
+            border-radius: 5px;
+            background: rgba(11, 31, 58, 0.90);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .evidence-card-body {
+            padding: 16px;
+        }
+
+        .evidence-card-body h4 {
+            margin: 0 0 6px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .evidence-product {
+            margin: 0 0 12px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .evidence-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .evidence-meta-item span {
+            display: block;
+            color: #94A3B8;
+            font-size: 10px;
+            margin-bottom: 3px;
+        }
+
+        .evidence-meta-item strong {
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .evidence-card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .evidence-view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 12px;
+            border: 1px solid var(--teal);
+            border-radius: 7px;
+            background: #FFFFFF;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 650;
+        }
+
+        .evidence-view-button:hover {
+            background: #E8F5F5;
+        }
+
+        .evidence-status {
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .evidence-status.pass {
+            color: var(--pass);
+        }
+
+        .evidence-status.review {
+            color: var(--review);
+        }
+
+        .evidence-status.issue {
+            color: var(--issue);
+        }
+
+        .library-empty {
+            display: none;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .library-empty strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .evidence-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .library-filters {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .evidence-grid {
+                grid-template-columns: 1fr;
+                padding: 14px;
+            }
+
+            .library-panel-header {
+                align-items: flex-start;
+                gap: 10px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">P</div>
+
+            <div class="brand-text">
+                <div class="brand-name">PackSure</div>
+                <div class="brand-tagline">Scan. Verify. Understand.</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="inspections.html" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>Inspections</span>
+            </a>
+
+            <a href="products.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="evidence-library.html" class="nav-item active">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+           <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+            <a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+   <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help & Support</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="topbar-title">
+                <h1>Evidence Library</h1>
+                <p>Review and access inspection evidence</p>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="notification-button" title="Notifications">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="user-profile">
+                    <div class="user-avatar">LM</div>
+
+                    <div class="user-info">
+                        <strong>Legal Metrology</strong>
+                        <span>Inspector</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE -->
+        <section class="page-content library-page">
+
+            <div class="page-heading">
+
+                <h2>Evidence Library</h2>
+
+                <p>
+                    Centralized access to package images and supporting evidence
+                    collected during inspections.
+                </p>
+
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="library-filters">
+
+                <input
+                    type="text"
+                    id="evidenceSearch"
+                    class="library-filter"
+                    placeholder="Search product, manufacturer or inspection ID..."
+                >
+
+                <select id="evidenceTypeFilter" class="library-filter">
+
+                    <option value="">All Evidence Types</option>
+                    <option value="Front">Front Package</option>
+                    <option value="Back">Back Package</option>
+                    <option value="Side">Side Package</option>
+
+                </select>
+
+                <select id="evidenceStatusFilter" class="library-filter">
+
+                    <option value="">All Statuses</option>
+                    <option value="PASS">PASS</option>
+                    <option value="REVIEW">REVIEW</option>
+                    <option value="POTENTIAL ISSUE">POTENTIAL ISSUE</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LIBRARY PANEL -->
+            <div class="evidence-library-panel">
+
+                <div class="library-panel-header">
+
+                    <div>
+                        <h3>Inspection Evidence</h3>
+                        <p>Package images linked to inspection records</p>
+                    </div>
+
+                    <span class="evidence-count" id="evidenceCount">
+                        6 evidence items
+                    </span>
+
+                </div>
+
+
+                <!-- EVIDENCE GRID -->
+                <div class="evidence-grid" id="evidenceGrid">
+
+
+                    <!-- CARD 1 -->
+                    <article
+                        class="evidence-card"
+                        data-search="whole wheat flour grainpure foods pvt ltd ins-2026-0248"
+                        data-type="Front"
+                        data-status="PASS"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Front</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Whole Wheat Flour</h4>
+
+                            <p class="evidence-product">
+                                GrainPure Foods Pvt. Ltd.
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0248</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>04 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status pass">
+                                    PASS
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 2 -->
+                    <article
+                        class="evidence-card"
+                        data-search="premium basmati rice freshharvest foods ins-2026-0247"
+                        data-type="Back"
+                        data-status="REVIEW"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Back</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Premium Basmati Rice</h4>
+
+                            <p class="evidence-product">
+                                FreshHarvest Foods
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0247</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>04 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status review">
+                                    REVIEW
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 3 -->
+                    <article
+                        class="evidence-card"
+                        data-search="packaged drinking water sunrise consumer products ins-2026-0246"
+                        data-type="Back"
+                        data-status="POTENTIAL ISSUE"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Back</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Packaged Drinking Water</h4>
+
+                            <p class="evidence-product">
+                                Sunrise Consumer Products
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0246</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>03 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status issue">
+                                    POTENTIAL ISSUE
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 4 -->
+                    <article
+                        class="evidence-card"
+                        data-search="cooking oil national foods ltd ins-2026-0245"
+                        data-type="Side"
+                        data-status="PASS"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Side</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Cooking Oil</h4>
+
+                            <p class="evidence-product">
+                                National Foods Ltd.
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0245</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>03 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status pass">
+                                    PASS
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 5 -->
+                    <article
+                        class="evidence-card"
+                        data-search="instant coffee brewhouse consumer goods ins-2026-0244"
+                        data-type="Front"
+                        data-status="REVIEW"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Front</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Instant Coffee</h4>
+
+                            <p class="evidence-product">
+                                BrewHouse Consumer Goods
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0244</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>02 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status review">
+                                    REVIEW
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- CARD 6 -->
+                    <article
+                        class="evidence-card"
+                        data-search="premium basmati rice freshharvest foods ins-2026-0247"
+                        data-type="Front"
+                        data-status="REVIEW"
+                    >
+
+                        <div class="evidence-thumbnail">
+
+                            <div class="placeholder-image">
+                                <span class="placeholder-icon">▣</span>
+                                <span>Package Image</span>
+                            </div>
+
+                            <span class="evidence-type">Front</span>
+
+                        </div>
+
+                        <div class="evidence-card-body">
+
+                            <h4>Premium Basmati Rice</h4>
+
+                            <p class="evidence-product">
+                                FreshHarvest Foods
+                            </p>
+
+                            <div class="evidence-meta">
+
+                                <div class="evidence-meta-item">
+                                    <span>Inspection</span>
+                                    <strong>INS-2026-0247</strong>
+                                </div>
+
+                                <div class="evidence-meta-item">
+                                    <span>Date</span>
+                                    <strong>04 Sep 2026</strong>
+                                </div>
+
+                            </div>
+
+                            <div class="evidence-card-actions">
+
+                                <a
+                                    href="inspection-details.html"
+                                    class="evidence-view-button"
+                                >
+                                    View Inspection
+                                </a>
+
+                                <span class="evidence-status review">
+                                    REVIEW
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+                <div class="library-empty" id="libraryEmpty">
+
+                    <strong>No evidence found</strong>
+
+                    Try changing your search or filter criteria.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FILTER SCRIPT -->
+    <script>
+
+        const evidenceSearch =
+            document.getElementById("evidenceSearch");
+
+        const evidenceTypeFilter =
+            document.getElementById("evidenceTypeFilter");
+
+        const evidenceStatusFilter =
+            document.getElementById("evidenceStatusFilter");
+
+        const evidenceGrid =
+            document.getElementById("evidenceGrid");
+
+        const evidenceCount =
+            document.getElementById("evidenceCount");
+
+        const libraryEmpty =
+            document.getElementById("libraryEmpty");
+
+
+        function filterEvidence() {
+
+            const searchValue =
+                evidenceSearch.value.toLowerCase().trim();
+
+            const typeValue =
+                evidenceTypeFilter.value;
+
+            const statusValue =
+                evidenceStatusFilter.value;
+
+            const cards =
+                document.querySelectorAll(".evidence-card");
+
+            let visibleCount = 0;
+
+
+            cards.forEach(card => {
+
+                const searchText =
+                    card.dataset.search.toLowerCase();
+
+                const cardType =
+                    card.dataset.type;
+
+                const cardStatus =
+                    card.dataset.status;
+
+
+                const matchesSearch =
+                    searchText.includes(searchValue);
+
+                const matchesType =
+                    !typeValue || cardType === typeValue;
+
+                const matchesStatus =
+                    !statusValue || cardStatus === statusValue;
+
+
+                if (
+                    matchesSearch &&
+                    matchesType &&
+                    matchesStatus
+                ) {
+
+                    card.style.display = "";
+
+                    visibleCount++;
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+
+            evidenceCount.textContent =
+                visibleCount +
+                (visibleCount === 1
+                    ? " evidence item"
+                    : " evidence items");
+
+
+            if (visibleCount === 0) {
+
+                libraryEmpty.style.display = "block";
+
+            } else {
+
+                libraryEmpty.style.display = "none";
+
+            }
+
+        }
+
+
+        evidenceSearch.addEventListener(
+            "input",
+            filterEvidence
+        );
+
+        evidenceTypeFilter.addEventListener(
+            "change",
+            filterEvidence
+        );
+
+        evidenceStatusFilter.addEventListener(
+            "change",
+            filterEvidence
+        );
+
+    </script>
+
+</body>
+</html>

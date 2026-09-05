@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    PackSure
+                </div>
+
+                <div class="brand-tagline">
+                    Scan. Verify. Understand.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="inspections.html" class="nav-item active">
+                <span class="nav-icon">▣</span>
+                <span>Inspections</span>
+            </a>
+
+
+            <a href="products.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+
+            <a href="evidence.html" class="nav-item">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">◒</span>
+                <span>Analytics</span>
+            </a>
+
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Admin &amp; Rules</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help &amp; Support</span>
+            </a>
+
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>New Inspection</h1>
+
+                <p>
+                    Add product information for this inspection
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    class="notification-button"
+                    type="button"
+                >
+                    🔔
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Legal Metrology Inspector
+                        </strong>
+
+                        <span>
+                            Inspector
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+
+            <!-- BACK -->
+            <a
+                href="new-inspection.html"
+                class="back-link"
+            >
+                ← Back to Inspection Details
+            </a>
+
+
+
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        Product Details
+                    </h2>
+
+                    <p>
+                        Enter the details printed or available on the package.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+            <div class="inspection-progress">
+
+
+                <div class="progress-step completed">
+
+                    <div class="progress-number">
+                        ✓
+                    </div>
+
+                    <div class="progress-label">
+                        Inspection Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step active">
+
+                    <div class="progress-number">
+                        2
+                    </div>
+
+                    <div class="progress-label">
+                        Product Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        3
+                    </div>
+
+                    <div class="progress-label">
+                        Evidence
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        4
+                    </div>
+
+                    <div class="progress-label">
+                        Review
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PRODUCT FORM -->
+            <div class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Product Information
+                        </h2>
+
+                        <p>
+                            Provide the available product information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                    <!-- PRODUCT NAME -->
+                    <div class="form-group">
+
+                        <label for="productName">
+                            Product Name
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            placeholder="Enter product name"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- MANUFACTURER -->
+                    <div class="form-group">
+
+                        <label for="manufacturer">
+                            Manufacturer / Packer
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="manufacturer"
+                            placeholder="Enter manufacturer or packer"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- NET QUANTITY -->
+                    <div class="form-group">
+
+                        <label for="netQuantity">
+                            Net Quantity
+                        </label>
+
+                        <input
+                            type="text"
+                            id="netQuantity"
+                            placeholder="Example: 5 kg"
+                        >
+
+                    </div>
+
+
+
+                    <!-- MRP -->
+                    <div class="form-group">
+
+                        <label for="mrp">
+                            Maximum Retail Price (MRP)
+                        </label>
+
+                        <input
+                            type="text"
+                            id="mrp"
+                            placeholder="Example: ₹320"
+                        >
+
+                    </div>
+
+
+
+                    <!-- BATCH -->
+                    <div class="form-group">
+
+                        <label for="batchNumber">
+                            Batch / Lot Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="batchNumber"
+                            placeholder="Enter batch or lot number"
+                        >
+
+                    </div>
+
+
+
+                    <!-- DATE -->
+                    <div class="form-group">
+
+                        <label for="dateOfPacking">
+                            Date of Packing
+                        </label>
+
+                        <input
+                            type="text"
+                            id="dateOfPacking"
+                            placeholder="Example: Aug 2026"
+                        >
+
+                    </div>
+
+
+
+                    <!-- CATEGORY -->
+                    <div class="form-group">
+
+                        <label for="productCategory">
+                            Product Category
+                        </label>
+
+                        <select id="productCategory">
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="Food & Grocery">
+                                Food &amp; Grocery
+                            </option>
+
+                            <option value="Beverages">
+                                Beverages
+                            </option>
+
+                            <option value="Household Products">
+                                Household Products
+                            </option>
+
+                            <option value="Personal Care">
+                                Personal Care
+                            </option>
+
+                            <option value="Electrical / Consumer Goods">
+                                Electrical / Consumer Goods
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- NOTES -->
+                    <div class="form-group full-width">
+
+                        <label for="productNotes">
+                            Product Notes
+                        </label>
+
+                        <textarea
+                            id="productNotes"
+                            rows="5"
+                            placeholder="Enter any additional product observations..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+            <div class="form-actions">
+
+
+                <a
+                    href="new-inspection.html"
+                    class="secondary-button"
+                >
+                    ← Back
+                </a>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="continueProduct"
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- SAVE PRODUCT DATA -->
+    <script>
+
+        const continueProduct =
+            document.getElementById(
+                "continueProduct"
+            );
+
+
+        if (continueProduct) {
+
+            continueProduct.addEventListener(
+                "click",
+                function () {
+
+
+                    const productName =
+                        document.getElementById(
+                            "productName"
+                        );
+
+
+                    const manufacturer =
+                        document.getElementById(
+                            "manufacturer"
+                        );
+
+
+                    const netQuantity =
+                        document.getElementById(
+                            "netQuantity"
+                        );
+
+
+                    const mrp =
+                        document.getElementById(
+                            "mrp"
+                        );
+
+
+                    const batchNumber =
+                        document.getElementById(
+                            "batchNumber"
+                        );
+
+
+                    const dateOfPacking =
+                        document.getElementById(
+                            "dateOfPacking"
+                        );
+
+
+                    const productCategory =
+                        document.getElementById(
+                            "productCategory"
+                        );
+
+
+                    const productNotes =
+                        document.getElementById(
+                            "productNotes"
+                        );
+
+
+
+                    /* VALIDATION */
+
+                    if (!productName.value.trim()) {
+
+                        alert(
+                            "Please enter the product name."
+                        );
+
+                        productName.focus();
+
+                        return;
+
+                    }
+
+
+                    if (!manufacturer.value.trim()) {
+
+                        alert(
+                            "Please enter the manufacturer / packer."
+                        );
+
+                        manufacturer.focus();
+
+                        return;
+
+                    }
+
+
+
+                    /* SAVE PRODUCT DATA */
+
+                    const productData = {
+
+                        name:
+                            productName.value.trim(),
+
+                        manufacturer:
+                            manufacturer.value.trim(),
+
+                        quantity:
+                            netQuantity.value.trim(),
+
+                        mrp:
+                            mrp.value.trim(),
+
+                        batch:
+                            batchNumber.value.trim(),
+
+                        packingDate:
+                            dateOfPacking.value.trim(),
+
+                        category:
+                            productCategory.value,
+
+                        notes:
+                            productNotes.value.trim()
+
+                    };
+
+
+                    localStorage.setItem(
+
+                        "packSureProduct",
+
+                        JSON.stringify(
+                            productData
+                        )
+
+                    );
+
+
+
+                    /* MOVE TO EVIDENCE */
+
+                    window.location.href =
+                        "evidence.html";
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+</body>
+</html>

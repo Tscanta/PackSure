@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div class="brand-text">
+                <h1>PackSure</h1>
+                <span>Legal Metrology</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">
+                MAIN
+            </div>
+
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="inspections.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Inspections</span>
+</a>
+
+            <a href="products.html" class="nav-item">
+
+    <span class="nav-icon">□</span>
+
+    <span>Products</span>
+
+</a>
+
+            <a href="evidence-library.html" class="nav-item">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+           <a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+<a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+
+
+            <div class="nav-section-title system-title">
+                SYSTEM
+            </div>
+
+           <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help & Support</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item logout">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="page-heading">
+
+                <h2>Dashboard</h2>
+
+                <p>
+                    Legal Metrology Compliance Overview
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button class="notification-button">
+                    🔔
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-details">
+
+                        <strong>Legal Metrology Inspector</strong>
+
+                        <span>
+                            Inspector Account
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             DASHBOARD CONTENT
+        ========================================== -->
+
+        <section class="page-content">
+
+
+            <!-- WELCOME SECTION -->
+
+            <div class="welcome">
+
+                <div>
+
+                    <h3>Dashboard</h3>
+
+                    <p>
+                        Monitor inspections, findings and compliance activity.
+                    </p>
+
+                </div>
+
+
+                <a href="new-inspection.html" class="primary-button">
+    + New Inspection
+</a>
+
+            </div>
+
+
+            <!-- =========================================
+                 KPI CARDS
+            ========================================== -->
+
+            <div class="stats-grid">
+
+
+                <!-- TOTAL INSPECTIONS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ◫
+                    </div>
+
+                    <div class="stat-content">
+
+                        <p>Total Inspections</p>
+
+                        <h4>248</h4>
+
+                        <span class="stat-note">
+                            12.5% this month
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLIANT -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div class="stat-content">
+
+                        <p>Compliant</p>
+
+                        <h4>186</h4>
+
+                        <span class="stat-note">
+                            75% compliance rate
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NEEDS REVIEW -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon review-icon">
+                        !
+                    </div>
+
+                    <div class="stat-content">
+
+                        <p>Needs Review</p>
+
+                        <h4>42</h4>
+
+                        <span class="review-note">
+                            Requires verification
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- POTENTIAL ISSUES -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon issue-icon">
+                        !
+                    </div>
+
+                    <div class="stat-content">
+
+                        <p>Potential Issues</p>
+
+                        <h4>20</h4>
+
+                        <span class="issue-note">
+                            8 new this week
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- END OF KPI CARDS -->
+
+
+            <!-- =========================================
+                 RECENT INSPECTIONS + PRIORITY FINDINGS
+            ========================================== -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- =====================================
+                     RECENT INSPECTIONS
+                ====================================== -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Recent Inspections</h3>
+
+                            <p>
+                                Latest inspection activity
+                            </p>
+
+                        </div>
+
+                        <a href="#">
+                            View all →
+                        </a>
+
+                    </div>
+
+
+                    <div class="inspection-list">
+
+
+                        <!-- INSPECTION 1 -->
+
+                        <div class="inspection-row">
+
+                            <div class="inspection-info">
+
+                                <strong>
+                                    INS-2026-0248
+                                </strong>
+
+                                <span>
+                                    GrainPure Foods Pvt. Ltd.
+                                </span>
+
+                            </div>
+
+
+                            <span class="status pass">
+                                PASS
+                            </span>
+
+
+                            <span class="inspection-date">
+                                Today, 10:42 AM
+                            </span>
+
+                        </div>
+
+
+                        <!-- INSPECTION 2 -->
+
+                        <div class="inspection-row">
+
+                            <div class="inspection-info">
+
+                                <strong>
+                                    INS-2026-0247
+                                </strong>
+
+                                <span>
+                                    FreshHarvest Foods
+                                </span>
+
+                            </div>
+
+
+                            <span class="status review">
+                                REVIEW
+                            </span>
+
+
+                            <span class="inspection-date">
+                                Today, 09:18 AM
+                            </span>
+
+                        </div>
+
+
+                        <!-- INSPECTION 3 -->
+
+                        <div class="inspection-row">
+
+                            <div class="inspection-info">
+
+                                <strong>
+                                    INS-2026-0246
+                                </strong>
+
+                                <span>
+                                    Sunrise Consumer Products
+                                </span>
+
+                            </div>
+
+
+                            <span class="status issue">
+                                POTENTIAL ISSUE
+                            </span>
+
+
+                            <span class="inspection-date">
+                                Yesterday, 04:36 PM
+                            </span>
+
+                        </div>
+
+
+                        <!-- INSPECTION 4 -->
+
+                        <div class="inspection-row">
+
+                            <div class="inspection-info">
+
+                                <strong>
+                                    INS-2026-0245
+                                </strong>
+
+                                <span>
+                                    National Foods Ltd.
+                                </span>
+
+                            </div>
+
+
+                            <span class="status pass">
+                                PASS
+                            </span>
+
+
+                            <span class="inspection-date">
+                                Yesterday, 02:12 PM
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     PRIORITY FINDINGS
+                ====================================== -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h3>Priority Findings</h3>
+
+                            <p>
+                                Requires inspector attention
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="finding-list">
+
+
+                        <!-- FINDING 1 -->
+
+                        <div class="finding">
+
+                            <div class="finding-number issue-number">
+                                1
+                            </div>
+
+                            <div class="finding-content">
+
+                                <strong>
+                                    Net Quantity Declaration
+                                </strong>
+
+                                <p>
+                                    Potential issue detected
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FINDING 2 -->
+
+                        <div class="finding">
+
+                            <div class="finding-number review-number">
+                                2
+                            </div>
+
+                            <div class="finding-content">
+
+                                <strong>
+                                    MRP Declaration
+                                </strong>
+
+                                <p>
+                                    Requires verification
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FINDING 3 -->
+
+                        <div class="finding">
+
+                            <div class="finding-number review-number">
+                                3
+                            </div>
+
+                            <div class="finding-content">
+
+                                <strong>
+                                    Manufacturer Details
+                                </strong>
+
+                                <p>
+                                    Requires verification
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- END DASHBOARD GRID -->
+
+
+        </section>
+        <!-- END PAGE CONTENT -->
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+    
+
+</body>
+
+</html>

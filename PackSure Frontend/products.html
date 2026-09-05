@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            P
+        </div>
+
+        <div class="brand-name">
+            PackSure
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html" class="nav-item">
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="inspections.html" class="nav-item">
+
+            <span class="nav-icon">
+                ✓
+            </span>
+
+            <span>
+                Inspections
+            </span>
+
+        </a>
+
+
+        <a href="products.html" class="nav-item active">
+
+            <span class="nav-icon">
+                □
+            </span>
+
+            <span>
+                Products
+            </span>
+
+        </a>
+
+
+        <a href="evidence.html" class="nav-item">
+
+            <span class="nav-icon">
+                ◈
+            </span>
+
+            <span>
+                Evidence
+            </span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <span class="nav-icon">
+                ▤
+            </span>
+
+            <span>
+                Reports
+            </span>
+
+        </a>
+
+
+        <a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+
+
+       <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="#" class="nav-item">
+
+            <span class="nav-icon">
+                ?
+            </span>
+
+            <span>
+                Help & Support
+            </span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+        <a href="#" class="nav-item">
+
+            <span class="nav-icon">
+                ↪
+            </span>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<main class="main-content">
+
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Products
+            </h1>
+
+            <p>
+                Product records and compliance history
+            </p>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+            <button
+                class="notification-button"
+                type="button">
+
+                ♢
+
+            </button>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    LM
+                </div>
+
+
+                <div class="user-info">
+
+                    <strong>
+                        Legal Metrology Inspector
+                    </strong>
+
+                    <span>
+                        Inspector
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <div class="page-content">
+
+
+        <div class="page-heading">
+
+            <div>
+
+                <h2>
+                    Products
+                </h2>
+
+                <p>
+                    Search products and view their inspection history
+                    and compliance status.
+                </p>
+
+            </div>
+
+
+            <a
+                href="new-inspection.html"
+                class="primary-button">
+
+                + New Inspection
+
+            </a>
+
+        </div>
+
+
+
+        <!-- FILTERS -->
+
+        <div class="filter-panel">
+
+
+            <div class="filter-group">
+
+                <label for="productSearch">
+                    Search
+                </label>
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    placeholder="Search product or manufacturer">
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="productCategoryFilter">
+                    Category
+                </label>
+
+                <select id="productCategoryFilter">
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="Food & Grocery">
+                        Food & Grocery
+                    </option>
+
+                    <option value="Beverages">
+                        Beverages
+                    </option>
+
+                    <option value="Personal Care">
+                        Personal Care
+                    </option>
+
+                    <option value="Household">
+                        Household
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="productStatusFilter">
+                    Status
+                </label>
+
+                <select id="productStatusFilter">
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="PASS">
+                        PASS
+                    </option>
+
+                    <option value="REVIEW">
+                        REVIEW
+                    </option>
+
+                    <option value="POTENTIAL ISSUE">
+                        POTENTIAL ISSUE
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PRODUCT TABLE -->
+
+        <div class="table-panel">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Product Records
+                    </h3>
+
+                    <p>
+                        Products associated with inspection activity
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="record-count"
+                    id="productRecordCount">
+
+                    5 Records
+
+                </span>
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table class="inspection-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Manufacturer
+                            </th>
+
+                            <th>
+                                Category
+                            </th>
+
+                            <th>
+                                Inspections
+                            </th>
+
+                            <th>
+                                Last Inspection
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="productTableBody">
+
+
+                        <!-- PRODUCT 1 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Whole Wheat Flour
+                                </strong>
+                            </td>
+
+                            <td>
+                                GrainPure Foods Pvt. Ltd.
+                            </td>
+
+                            <td>
+                                Food & Grocery
+                            </td>
+
+                            <td>
+                                12
+                            </td>
+
+                            <td>
+                                04 Sep 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status pass">
+                                    PASS
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="product-history.html?product=whole-wheat-flour"
+                                    class="view-button">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- PRODUCT 2 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Premium Basmati Rice
+                                </strong>
+                            </td>
+
+                            <td>
+                                FreshHarvest Foods
+                            </td>
+
+                            <td>
+                                Food & Grocery
+                            </td>
+
+                            <td>
+                                8
+                            </td>
+
+                            <td>
+                                04 Sep 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status review">
+                                    REVIEW
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="product-history.html?product=basmati-rice"
+                                    class="view-button">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- PRODUCT 3 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Packaged Drinking Water
+                                </strong>
+                            </td>
+
+                            <td>
+                                Sunrise Consumer Products
+                            </td>
+
+                            <td>
+                                Beverages
+                            </td>
+
+                            <td>
+                                5
+                            </td>
+
+                            <td>
+                                03 Sep 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status issue">
+                                    POTENTIAL ISSUE
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="product-history.html?product=packaged-water"
+                                    class="view-button">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- PRODUCT 4 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Cooking Oil
+                                </strong>
+                            </td>
+
+                            <td>
+                                National Foods Ltd.
+                            </td>
+
+                            <td>
+                                Food & Grocery
+                            </td>
+
+                            <td>
+                                15
+                            </td>
+
+                            <td>
+                                03 Sep 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status pass">
+                                    PASS
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="product-history.html?product=cooking-oil"
+                                    class="view-button">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- PRODUCT 5 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Instant Coffee
+                                </strong>
+                            </td>
+
+                            <td>
+                                BrewHouse Consumer Goods
+                            </td>
+
+                            <td>
+                                Food & Grocery
+                            </td>
+
+                            <td>
+                                6
+                            </td>
+
+                            <td>
+                                02 Sep 2026
+                            </td>
+
+                            <td>
+
+                                <span class="status review">
+                                    REVIEW
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="product-history.html?product=instant-coffee"
+                                    class="view-button">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     EXISTING FILTER SCRIPT
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =====================================================
+     ADD COMPLETED WORKFLOW PRODUCT
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const productData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureProduct"
+                )
+            );
+
+
+        const reviewData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureReview"
+                )
+            );
+
+
+        const inspectionData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureInspection"
+                )
+            );
+
+
+        /*
+         * Only add the product after the
+         * inspection review has been completed.
+         */
+
+        if (
+            !productData ||
+            !reviewData
+        ) {
+
+            return;
+
+        }
+
+
+        const tableBody =
+            document.getElementById(
+                "productTableBody"
+            );
+
+
+        /*
+         * Prevent duplicate rows.
+         */
+
+        if (
+            document.getElementById(
+                "workflowProduct"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * Convert category value
+         * into a readable fallback.
+         */
+
+        const category =
+            productData.category ||
+            "Other";
+
+
+        /*
+         * Determine final status.
+         */
+
+        let finalStatus =
+            reviewData.finalStatus ||
+            "REVIEW";
+
+
+        /*
+         * Determine CSS status class.
+         */
+
+        let statusClass =
+            "review";
+
+
+        if (
+            finalStatus ===
+            "PASS"
+        ) {
+
+            statusClass =
+                "pass";
+
+        }
+        else if (
+            finalStatus ===
+            "POTENTIAL ISSUE"
+        ) {
+
+            statusClass =
+                "issue";
+
+        }
+
+
+        /*
+         * Create product identifier.
+         */
+
+        const productKey =
+            "workflow-product";
+
+
+        /*
+         * Create new table row.
+         */
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.id =
+            "workflowProduct";
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <strong>
+                    ${
+                        productData.name ||
+                        "New Product"
+                    }
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                ${
+                    productData.manufacturer ||
+                    "—"
+                }
+
+            </td>
+
+
+            <td>
+
+                ${category}
+
+            </td>
+
+
+            <td>
+                1
+            </td>
+
+
+            <td>
+
+                ${
+                    inspectionData &&
+                    inspectionData.date
+                        ? inspectionData.date
+                        : "05 Sep 2026"
+                }
+
+            </td>
+
+
+            <td>
+
+                <span class="status ${statusClass}">
+                    ${finalStatus}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <a
+                    href="product-history.html?product=${productKey}"
+                    class="view-button">
+
+                    View
+
+                </a>
+
+            </td>
+
+        `;
+
+
+        /*
+         * Put the newest product at the top.
+         */
+
+        tableBody.prepend(
+            row
+        );
+
+
+        /*
+         * Update record count.
+         */
+
+        const recordCount =
+            document.getElementById(
+                "productRecordCount"
+            );
+
+
+        if (recordCount) {
+
+            recordCount.textContent =
+                "6 Records";
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+
+</html>

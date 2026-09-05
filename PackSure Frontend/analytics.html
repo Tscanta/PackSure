@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .analytics-page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* FILTERS */
+
+        .analytics-filter-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 20px;
+            margin-bottom: 22px;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .analytics-filter-info h3 {
+            margin: 0 0 4px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .analytics-filter-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .analytics-filter {
+            height: 40px;
+            min-width: 150px;
+            padding: 0 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .analytics-filter:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(15, 139, 141, 0.10);
+        }
+
+
+        /* KPI CARDS */
+
+        .analytics-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .analytics-kpi {
+            padding: 20px;
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .analytics-kpi-label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .analytics-kpi-value {
+            color: var(--text-primary);
+            font-size: 27px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .analytics-kpi-note {
+            margin-top: 7px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+
+        /* CHART AREA */
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .analytics-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .analytics-panel-header {
+            margin-bottom: 20px;
+        }
+
+        .analytics-panel-header h3 {
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .analytics-panel-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+
+        /* BAR CHART */
+
+        .bar-chart {
+            height: 245px;
+            display: flex;
+            align-items: flex-end;
+            gap: 18px;
+            padding: 15px 5px 0;
+            border-bottom: 1px solid #CBD5E1;
+        }
+
+        .bar-column {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .bar-group {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .bar {
+            width: 18px;
+            min-height: 4px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .bar.total {
+            background: var(--teal);
+        }
+
+        .bar.issue {
+            background: var(--issue);
+        }
+
+        .bar-label {
+            margin-top: 9px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 10px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 18px;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.total {
+            background: var(--teal);
+        }
+
+        .legend-dot.issue {
+            background: var(--issue);
+        }
+
+
+        /* COMPLIANCE DISTRIBUTION */
+
+        .distribution {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .distribution-row {
+            display: grid;
+            grid-template-columns: 125px 1fr 45px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .distribution-label {
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .distribution-track {
+            height: 9px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #EDF1F5;
+        }
+
+        .distribution-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .distribution-fill.pass {
+            width: 75%;
+            background: var(--pass);
+        }
+
+        .distribution-fill.review {
+            width: 17%;
+            background: var(--review);
+        }
+
+        .distribution-fill.issue {
+            width: 8%;
+            background: var(--issue);
+        }
+
+        .distribution-value {
+            text-align: right;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* FINDINGS */
+
+        .findings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .finding-row {
+            display: grid;
+            grid-template-columns: 1fr 100px 45px;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .finding-name {
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .finding-track {
+            height: 8px;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #EDF1F5;
+        }
+
+        .finding-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: var(--teal);
+        }
+
+        .finding-number {
+            text-align: right;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+
+        /* PRODUCTS TABLE */
+
+        .product-analysis-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .product-analysis-header {
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .product-analysis-header h3 {
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-size: 16px;
+        }
+
+        .product-analysis-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .analysis-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .analysis-table th {
+            padding: 12px 18px;
+            text-align: left;
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--border);
+            color: #64748B;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .analysis-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #EDF1F5;
+            color: var(--text-primary);
+            font-size: 12px;
+        }
+
+        .analysis-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .analysis-product {
+            font-weight: 650;
+        }
+
+        .analysis-status {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .analysis-status.pass {
+            color: var(--pass);
+        }
+
+        .analysis-status.review {
+            color: var(--review);
+        }
+
+        .analysis-status.issue {
+            color: var(--issue);
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .analytics-kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .analytics-kpis {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-filter-panel {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .analytics-filter {
+                width: 100%;
+            }
+
+            .bar-chart {
+                gap: 7px;
+            }
+
+            .bar {
+                width: 12px;
+            }
+
+            .distribution-row {
+                grid-template-columns: 100px 1fr 35px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    PackSure
+                </div>
+
+                <div class="brand-tagline">
+                    Scan. Verify. Understand.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="inspections.html" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>Inspections</span>
+            </a>
+
+            <a href="products.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="evidence-library.html" class="nav-item">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+            <a href="reports.html" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="analytics.html" class="nav-item active">
+                <span class="nav-icon">▥</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help & Support</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-title">
+
+                <h1>
+                    Analytics
+                </h1>
+
+                <p>
+                    Compliance trends and inspection insights
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    class="notification-button"
+                    title="Notifications"
+                >
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Legal Metrology
+                        </strong>
+
+                        <span>
+                            Inspector
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+
+        <section class="page-content analytics-page">
+
+
+            <div class="page-heading">
+
+                <h2>
+                    Analytics Overview
+                </h2>
+
+                <p>
+                    Monitor inspection activity, compliance outcomes and
+                    recurring findings across packaged commodities.
+                </p>
+
+            </div>
+
+
+            <!-- FILTER -->
+
+            <div class="analytics-filter-panel">
+
+                <div class="analytics-filter-info">
+
+                    <h3>
+                        Analysis Period
+                    </h3>
+
+                    <p>
+                        Select the period used for the analytics view.
+                    </p>
+
+                </div>
+
+
+                <select
+                    id="analyticsPeriod"
+                    class="analytics-filter"
+                >
+
+                    <option value="month">
+                        This Month
+                    </option>
+
+                    <option value="quarter">
+                        This Quarter
+                    </option>
+
+                    <option value="year">
+                        This Year
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- KPI CARDS -->
+
+            <div class="analytics-kpis">
+
+
+                <div class="analytics-kpi">
+
+                    <div class="analytics-kpi-label">
+                        Total Inspections
+                    </div>
+
+                    <div class="analytics-kpi-value">
+                        248
+                    </div>
+
+                    <div class="analytics-kpi-note">
+                        12.5% increase this month
+                    </div>
+
+                </div>
+
+
+                <div class="analytics-kpi">
+
+                    <div class="analytics-kpi-label">
+                        Compliance Rate
+                    </div>
+
+                    <div class="analytics-kpi-value">
+                        75%
+                    </div>
+
+                    <div class="analytics-kpi-note">
+                        186 compliant inspections
+                    </div>
+
+                </div>
+
+
+                <div class="analytics-kpi">
+
+                    <div class="analytics-kpi-label">
+                        Findings
+                    </div>
+
+                    <div class="analytics-kpi-value">
+                        62
+                    </div>
+
+                    <div class="analytics-kpi-note">
+                        Across all inspections
+                    </div>
+
+                </div>
+
+
+                <div class="analytics-kpi">
+
+                    <div class="analytics-kpi-label">
+                        Potential Issues
+                    </div>
+
+                    <div class="analytics-kpi-value">
+                        20
+                    </div>
+
+                    <div class="analytics-kpi-note">
+                        8 new this week
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- CHARTS -->
+
+            <div class="analytics-grid">
+
+
+                <!-- INSPECTION TREND -->
+
+                <div class="analytics-panel">
+
+                    <div class="analytics-panel-header">
+
+                        <h3>
+                            Inspection Trend
+                        </h3>
+
+                        <p>
+                            Inspection activity and flagged findings
+                        </p>
+
+                    </div>
+
+
+                    <div class="bar-chart">
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 42%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 12%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                Apr
+                            </div>
+
+                        </div>
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 54%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 16%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                May
+                            </div>
+
+                        </div>
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 61%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 18%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                Jun
+                            </div>
+
+                        </div>
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 70%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 21%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                Jul
+                            </div>
+
+                        </div>
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 82%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 25%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                Aug
+                            </div>
+
+                        </div>
+
+
+                        <div class="bar-column">
+
+                            <div class="bar-group">
+
+                                <div
+                                    class="bar total"
+                                    style="height: 94%;"
+                                ></div>
+
+                                <div
+                                    class="bar issue"
+                                    style="height: 31%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="bar-label">
+                                Sep
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="chart-legend">
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot total"></span>
+
+                            Inspections
+
+                        </div>
+
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot issue"></span>
+
+                            Flagged Findings
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLIANCE -->
+
+                <div class="analytics-panel">
+
+                    <div class="analytics-panel-header">
+
+                        <h3>
+                            Compliance Distribution
+                        </h3>
+
+                        <p>
+                            Current inspection outcomes
+                        </p>
+
+                    </div>
+
+
+                    <div class="distribution">
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                PASS
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div class="distribution-fill pass"></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                75%
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                REVIEW
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div class="distribution-fill review"></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                17%
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                POTENTIAL ISSUE
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div class="distribution-fill issue"></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                8%
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FINDINGS -->
+
+            <div class="analytics-grid">
+
+
+                <div class="analytics-panel">
+
+                    <div class="analytics-panel-header">
+
+                        <h3>
+                            Findings by Declaration Type
+                        </h3>
+
+                        <p>
+                            Most frequently flagged declaration areas
+                        </p>
+
+                    </div>
+
+
+                    <div class="findings-list">
+
+
+                        <div class="finding-row">
+
+                            <div class="finding-name">
+                                Manufacturer / Packer Details
+                            </div>
+
+                            <div class="finding-track">
+
+                                <div
+                                    class="finding-fill"
+                                    style="width: 82%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="finding-number">
+                                18
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-row">
+
+                            <div class="finding-name">
+                                Net Quantity
+                            </div>
+
+                            <div class="finding-track">
+
+                                <div
+                                    class="finding-fill"
+                                    style="width: 65%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="finding-number">
+                                14
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-row">
+
+                            <div class="finding-name">
+                                MRP Declaration
+                            </div>
+
+                            <div class="finding-track">
+
+                                <div
+                                    class="finding-fill"
+                                    style="width: 55%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="finding-number">
+                                12
+                            </div>
+
+                        </div>
+
+
+                        <div class="finding-row">
+
+                            <div class="finding-name">
+                                Date of Packing
+                            </div>
+
+                            <div class="finding-track">
+
+                                <div
+                                    class="finding-fill"
+                                    style="width: 40%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="finding-number">
+                                9
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="analytics-panel">
+
+                    <div class="analytics-panel-header">
+
+                        <h3>
+                            Inspection Outcomes
+                        </h3>
+
+                        <p>
+                            Current distribution of reviewed records
+                        </p>
+
+                    </div>
+
+
+                    <div class="distribution">
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                Verified Pass
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div
+                                    class="distribution-fill pass"
+                                    style="width: 75%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                186
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                Pending Review
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div
+                                    class="distribution-fill review"
+                                    style="width: 17%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                42
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribution-row">
+
+                            <div class="distribution-label">
+                                Potential Issues
+                            </div>
+
+                            <div class="distribution-track">
+
+                                <div
+                                    class="distribution-fill issue"
+                                    style="width: 8%;"
+                                ></div>
+
+                            </div>
+
+                            <div class="distribution-value">
+                                20
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- PRODUCT ANALYSIS -->
+
+            <div class="product-analysis-panel">
+
+                <div class="product-analysis-header">
+
+                    <h3>
+                        Product Compliance Overview
+                    </h3>
+
+                    <p>
+                        Inspection performance across frequently inspected
+                        packaged commodities.
+                    </p>
+
+                </div>
+
+
+                <div class="analysis-table-wrapper">
+
+                    <table class="analysis-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Inspections
+                                </th>
+
+                                <th>
+                                    Findings
+                                </th>
+
+                                <th>
+                                    Compliance
+                                </th>
+
+                                <th>
+                                    Current Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr>
+
+                                <td>
+                                    <span class="analysis-product">
+                                        Whole Wheat Flour
+                                    </span>
+                                </td>
+
+                                <td>
+                                    12
+                                </td>
+
+                                <td>
+                                    0
+                                </td>
+
+                                <td>
+                                    100%
+                                </td>
+
+                                <td>
+
+                                    <span class="analysis-status pass">
+                                        PASS
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <span class="analysis-product">
+                                        Premium Basmati Rice
+                                    </span>
+                                </td>
+
+                                <td>
+                                    8
+                                </td>
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+                                    75%
+                                </td>
+
+                                <td>
+
+                                    <span class="analysis-status review">
+                                        REVIEW
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <span class="analysis-product">
+                                        Packaged Drinking Water
+                                    </span>
+                                </td>
+
+                                <td>
+                                    5
+                                </td>
+
+                                <td>
+                                    1
+                                </td>
+
+                                <td>
+                                    60%
+                                </td>
+
+                                <td>
+
+                                    <span class="analysis-status issue">
+                                        POTENTIAL ISSUE
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <span class="analysis-product">
+                                        Cooking Oil
+                                    </span>
+                                </td>
+
+                                <td>
+                                    15
+                                </td>
+
+                                <td>
+                                    0
+                                </td>
+
+                                <td>
+                                    100%
+                                </td>
+
+                                <td>
+
+                                    <span class="analysis-status pass">
+                                        PASS
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td>
+                                    <span class="analysis-product">
+                                        Instant Coffee
+                                    </span>
+                                </td>
+
+                                <td>
+                                    6
+                                </td>
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+                                    50%
+                                </td>
+
+                                <td>
+
+                                    <span class="analysis-status review">
+                                        REVIEW
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</body>
+</html>

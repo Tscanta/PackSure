@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>New Inspection - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-mark">
+                P
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    PackSure
+                </div>
+
+                <div class="brand-tagline">
+                    Scan. Verify. Understand.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+
+                <span class="nav-icon">⌂</span>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <a href="inspections.html" class="nav-item active">
+
+                <span class="nav-icon">▣</span>
+
+                <span>Inspections</span>
+
+            </a>
+
+
+            <a href="products.html" class="nav-item">
+
+                <span class="nav-icon">□</span>
+
+                <span>Products</span>
+
+            </a>
+
+
+            <a href="evidence.html" class="nav-item">
+
+                <span class="nav-icon">◈</span>
+
+                <span>Evidence</span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">▤</span>
+
+                <span>Reports</span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">◒</span>
+
+                <span>Analytics</span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">⚙</span>
+
+                <span>Admin &amp; Rules</span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">?</span>
+
+                <span>Help &amp; Support</span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">⚙</span>
+
+                <span>Settings</span>
+
+            </a>
+
+
+            <a href="#" class="nav-item">
+
+                <span class="nav-icon">↪</span>
+
+                <span>Logout</span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>New Inspection</h1>
+
+                <p>
+                    Create a new product compliance inspection
+                </p>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <button
+                    class="notification-button"
+                    type="button"
+                >
+                    🔔
+
+                    <span class="notification-dot"></span>
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-info">
+
+                        <strong>
+                            Legal Metrology Inspector
+                        </strong>
+
+                        <span>
+                            Inspector
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content">
+
+
+            <!-- BACK LINK -->
+            <a
+                href="inspections.html"
+                class="back-link"
+            >
+                ← Back to Inspections
+            </a>
+
+
+
+            <!-- PAGE HEADING -->
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        Create Inspection
+                    </h2>
+
+                    <p>
+                        Enter the basic details of the inspection.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS STEPS -->
+            <div class="inspection-progress">
+
+
+                <div class="progress-step active">
+
+                    <div class="progress-number">
+                        1
+                    </div>
+
+                    <div class="progress-label">
+                        Inspection Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        2
+                    </div>
+
+                    <div class="progress-label">
+                        Product Details
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        3
+                    </div>
+
+                    <div class="progress-label">
+                        Evidence
+                    </div>
+
+                </div>
+
+
+                <div class="progress-line"></div>
+
+
+                <div class="progress-step">
+
+                    <div class="progress-number">
+                        4
+                    </div>
+
+                    <div class="progress-label">
+                        Review
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INSPECTION FORM -->
+            <div class="panel">
+
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Inspection Details
+                        </h2>
+
+                        <p>
+                            Provide the basic information for this inspection.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-grid">
+
+
+                    <!-- INSPECTOR -->
+                    <div class="form-group">
+
+                        <label for="inspectorName">
+                            Inspector
+                        </label>
+
+                        <input
+                            type="text"
+                            id="inspectorName"
+                            value="Legal Metrology Inspector"
+                            readonly
+                        >
+
+                    </div>
+
+
+
+                    <!-- LOCATION -->
+                    <div class="form-group">
+
+                        <label for="inspectionLocation">
+                            Inspection Location
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="inspectionLocation"
+                            placeholder="Enter inspection location"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- INSPECTION TYPE -->
+                    <div class="form-group">
+
+                        <label for="inspectionType">
+                            Inspection Type
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="inspectionType"
+                            required
+                        >
+
+                            <option value="">
+                                Select inspection type
+                            </option>
+
+                            <option value="Routine Inspection">
+                                Routine Inspection
+                            </option>
+
+                            <option value="Complaint-Based Inspection">
+                                Complaint-Based Inspection
+                            </option>
+
+                            <option value="Follow-Up Inspection">
+                                Follow-Up Inspection
+                            </option>
+
+                            <option value="Market Surveillance">
+                                Market Surveillance
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- REFERENCE NUMBER -->
+                    <div class="form-group">
+
+                        <label for="referenceNumber">
+                            Reference Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="referenceNumber"
+                            placeholder="Optional reference number"
+                        >
+
+                    </div>
+
+
+
+                    <!-- NOTES -->
+                    <div class="form-group full-width">
+
+                        <label for="inspectionNotes">
+                            Inspection Notes
+                        </label>
+
+                        <textarea
+                            id="inspectionNotes"
+                            rows="5"
+                            placeholder="Enter any notes related to this inspection..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+            <div class="form-actions">
+
+
+                <a
+                    href="inspections.html"
+                    class="secondary-button"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="continueInspection"
+                >
+                    Continue →
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- SAVE INSPECTION DATA -->
+    <script>
+
+        const continueInspection =
+            document.getElementById(
+                "continueInspection"
+            );
+
+
+        if (continueInspection) {
+
+            continueInspection.addEventListener(
+                "click",
+                function () {
+
+
+                    const location =
+                        document.getElementById(
+                            "inspectionLocation"
+                        );
+
+
+                    const type =
+                        document.getElementById(
+                            "inspectionType"
+                        );
+
+
+                    const reference =
+                        document.getElementById(
+                            "referenceNumber"
+                        );
+
+
+                    const notes =
+                        document.getElementById(
+                            "inspectionNotes"
+                        );
+
+
+                    /* VALIDATION */
+
+                    if (!location.value.trim()) {
+
+                        alert(
+                            "Please enter the inspection location."
+                        );
+
+                        location.focus();
+
+                        return;
+
+                    }
+
+
+                    if (!type.value) {
+
+                        alert(
+                            "Please select the inspection type."
+                        );
+
+                        type.focus();
+
+                        return;
+
+                    }
+
+
+
+                    /* SAVE DATA */
+
+                    const inspectionData = {
+
+                        location:
+                            location.value.trim(),
+
+                        type:
+                            type.value,
+
+                        reference:
+                            reference.value.trim(),
+
+                        notes:
+                            notes.value.trim(),
+
+                        date:
+                            "05 Sep 2026"
+
+                    };
+
+
+                    localStorage.setItem(
+
+                        "packSureInspection",
+
+                        JSON.stringify(
+                            inspectionData
+                        )
+
+                    );
+
+
+
+                    /* MOVE TO PRODUCT DETAILS */
+
+                    window.location.href =
+                        "product-details.html";
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+</body>
+</html>

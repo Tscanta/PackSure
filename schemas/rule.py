@@ -1,9 +1,22 @@
-"""
-Rule-level validation interface for PackSho.
+"""Public API schemas for stored compliance rules and legacy validator exports."""
 
-Legal requirements are stored in the rule dataset / Supabase.
-This module exposes the technical validators used by the inspection engine.
-"""
+from datetime import date
+from typing import Optional
+
+from pydantic import BaseModel
+
+
+class RuleResponse(BaseModel):
+    id: int
+    rule_id: str
+    category: Optional[str] = None
+    requirement: str
+    description: Optional[str] = None
+    mandatory: bool
+    validation_type: Optional[str] = None
+    severity: Optional[str] = None
+    source: Optional[str] = None
+    effective_date: Optional[date] = None
 
 from backend.inspection.validator import (
     check_product_name,
