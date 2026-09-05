@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inspections - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            P
+        </div>
+
+        <div class="brand-name">
+            PackSure
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html" class="nav-item">
+
+            <span class="nav-icon">
+                ▣
+            </span>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="inspections.html"
+           class="nav-item active">
+
+            <span class="nav-icon">
+                ✓
+            </span>
+
+            <span>
+                Inspections
+            </span>
+
+        </a>
+
+
+        <a href="products.html"
+           class="nav-item">
+
+            <span class="nav-icon">
+                □
+            </span>
+
+            <span>
+                Products
+            </span>
+
+        </a>
+
+
+        <a href="evidence-library.html"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ◈
+            </span>
+
+            <span>
+                Evidence
+            </span>
+
+        </a>
+
+<a href="reports.html" class="nav-item">
+    <span class="nav-icon">▤</span>
+    <span>Reports</span>
+</a>
+
+
+       <a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+
+        <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ?
+            </span>
+
+            <span>
+                Help & Support
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ⚙
+            </span>
+
+            <span>
+                Settings
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item">
+
+            <span class="nav-icon">
+                ↪
+            </span>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Inspections
+            </h1>
+
+            <p>
+                Manage and review packaged-commodity inspections
+            </p>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+            <button
+                class="notification-button"
+                type="button">
+                ♢
+            </button>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    LM
+                </div>
+
+
+                <div class="user-info">
+
+                    <strong>
+                        Legal Metrology Inspector
+                    </strong>
+
+                    <span>
+                        Inspector
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================= -->
+
+    <div class="page-content">
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading">
+
+            <div>
+
+                <h2>
+                    Inspections
+                </h2>
+
+                <p>
+                    View, search and manage inspection records.
+                </p>
+
+            </div>
+
+
+            <a
+                href="new-inspection.html"
+                class="primary-button">
+
+                + New Inspection
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================= -->
+
+        <div class="filter-panel">
+
+
+            <div class="filter-group">
+
+                <label for="inspectionSearch">
+                    Search
+                </label>
+
+                <input
+                    type="text"
+                    id="inspectionSearch"
+                    placeholder="Search inspection, product or manufacturer">
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="statusFilter">
+                    Status
+                </label>
+
+                <select id="statusFilter">
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="pass">
+                        PASS
+                    </option>
+
+                    <option value="review">
+                        REVIEW
+                    </option>
+
+                    <option value="issue">
+                        POTENTIAL ISSUE
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-group">
+
+                <label for="dateFilter">
+                    Date
+                </label>
+
+                <select id="dateFilter">
+
+                    <option value="all">
+                        All Dates
+                    </option>
+
+                    <option value="today">
+                        Today
+                    </option>
+
+                    <option value="week">
+                        This Week
+                    </option>
+
+                    <option value="month">
+                        This Month
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             INSPECTION TABLE
+        ================================================= -->
+
+        <div class="table-panel">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h3>
+                        Inspection Records
+                    </h3>
+
+                    <p>
+                        Latest inspection activity
+                    </p>
+
+                </div>
+
+
+                <span class="record-count">
+                    6 Records
+                </span>
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table class="inspection-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Inspection ID
+                            </th>
+
+                            <th>
+                                Product
+                            </th>
+
+                            <th>
+                                Manufacturer
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Findings
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="inspectionTableBody">
+
+
+                        <!-- RECORD 1 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    INS-2026-0248
+                                </strong>
+                            </td>
+
+                            <td>
+                                Whole Wheat Flour
+                            </td>
+
+                            <td>
+                                GrainPure Foods Pvt. Ltd.
+                            </td>
+
+                            <td>
+                                04 Sep 2026
+                            </td>
+
+                            <td>
+                                0
+                            </td>
+
+                            <td>
+                                <span class="status pass">
+                                    PASS
+                                </span>
+                            </td>
+
+                            <td>
+                                <a
+                                    href="#"
+                                    class="view-button">
+                                    View
+                                </a>
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- RECORD 2 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    INS-2026-0247
+                                </strong>
+                            </td>
+
+                            <td>
+                                Premium Basmati Rice
+                            </td>
+
+                            <td>
+                                FreshHarvest Foods
+                            </td>
+
+                            <td>
+                                04 Sep 2026
+                            </td>
+
+                            <td>
+                                2
+                            </td>
+
+                            <td>
+                                <span class="status review">
+                                    REVIEW
+                                </span>
+                            </td>
+
+                            <td>
+                                <a
+                                    href="#"
+                                    class="view-button">
+                                    View
+                                </a>
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- RECORD 3 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    INS-2026-0246
+                                </strong>
+                            </td>
+
+                            <td>
+                                Packaged Drinking Water
+                            </td>
+
+                            <td>
+                                Sunrise Consumer Products
+                            </td>
+
+                            <td>
+                                03 Sep 2026
+                            </td>
+
+                            <td>
+                                1
+                            </td>
+
+                            <td>
+                                <span class="status issue">
+                                    POTENTIAL ISSUE
+                                </span>
+                            </td>
+
+                            <td>
+                                <a
+                                    href="#"
+                                    class="view-button">
+                                    View
+                                </a>
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- RECORD 4 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    INS-2026-0245
+                                </strong>
+                            </td>
+
+                            <td>
+                                Cooking Oil
+                            </td>
+
+                            <td>
+                                National Foods Ltd.
+                            </td>
+
+                            <td>
+                                03 Sep 2026
+                            </td>
+
+                            <td>
+                                0
+                            </td>
+
+                            <td>
+                                <span class="status pass">
+                                    PASS
+                                </span>
+                            </td>
+
+                            <td>
+                                <a
+                                    href="#"
+                                    class="view-button">
+                                    View
+                                </a>
+                            </td>
+
+                        </tr>
+
+
+
+                        <!-- RECORD 5 -->
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    INS-2026-0244
+                                </strong>
+                            </td>
+
+                            <td>
+                                Instant Coffee
+                            </td>
+
+                            <td>
+                                BrewHouse Consumer Goods
+                            </td>
+
+                            <td>
+                                02 Sep 2026
+                            </td>
+
+                            <td>
+                                3
+                            </td>
+
+                            <td>
+                                <span class="status review">
+                                    REVIEW
+                                </span>
+                            </td>
+
+                            <td>
+                                <a href="inspection-details.html" class="view-button">
+    View
+</a>
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- PAGINATION -->
+
+            <div class="pagination">
+
+                <button
+                    type="button"
+                    class="pagination-button">
+
+                    ←
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="pagination-button active">
+
+                    1
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="pagination-button">
+
+                    2
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="pagination-button">
+
+                    3
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="pagination-button">
+
+                    →
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     PAGE SCRIPT
+===================================================== -->
+
+<script src="api.js"></script>
+<script src="script.js"></script>
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        /*
+         * Read the latest inspection workflow data.
+         */
+
+        const inspectionData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureInspection"
+                )
+            );
+
+        const productData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureProduct"
+                )
+            );
+
+        const reviewData =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureReview"
+                )
+            );
+
+        const liveResult =
+            JSON.parse(
+                localStorage.getItem(
+                    "packSureLiveResult"
+                )
+            );
+
+
+
+        /*
+         * Only add the newly completed inspection
+         * when the workflow has actually been completed.
+         */
+
+        if (
+            inspectionData &&
+            productData &&
+            reviewData
+        ) {
+
+            const tableBody =
+                document.getElementById(
+                    "inspectionTableBody"
+                );
+
+
+            /*
+             * Avoid adding the same demo inspection
+             * repeatedly after page refresh.
+             */
+
+            if (
+                !document.getElementById(
+                    "newWorkflowInspection"
+                )
+            ) {
+
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                row.id =
+                    "newWorkflowInspection";
+
+
+                const finalStatus =
+                    reviewData.finalStatus ||
+                    "REVIEW";
+
+
+                let statusClass =
+                    "review";
+
+
+                if (
+                    finalStatus ===
+                    "PASS"
+                ) {
+
+                    statusClass =
+                        "pass";
+
+                }
+                else if (
+                    finalStatus ===
+                    "POTENTIAL ISSUE"
+                ) {
+
+                    statusClass =
+                        "issue";
+
+                }
+
+
+                const findings =
+                    finalStatus ===
+                    "PASS"
+                        ? "0"
+                        : "1";
+
+
+                row.innerHTML = `
+
+                    <td>
+                        <strong>
+                            ${(liveResult && liveResult.inspection_id) || "INS-2026-0249"}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${
+                            productData.name ||
+                            "New Product"
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            productData.manufacturer ||
+                            "—"
+                        }
+                    </td>
+
+                    <td>
+                        ${
+                            inspectionData.date ||
+                            "05 Sep 2026"
+                        }
+                    </td>
+
+                    <td>
+                        ${findings}
+                    </td>
+
+                    <td>
+
+                        <span class="status ${statusClass}">
+                            ${finalStatus}
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="review.html"
+                            class="view-button">
+
+                            View
+
+                        </a>
+
+                    </td>
+
+                `;
+
+
+                /*
+                 * Place the newest inspection at the top.
+                 */
+
+                tableBody.prepend(
+                    row
+                );
+
+            }
+
+        }
+
+    }
+
+);
+
+</script>
+
+
+</body>
+
+</html>

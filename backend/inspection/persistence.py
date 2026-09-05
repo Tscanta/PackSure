@@ -49,8 +49,8 @@ def save_inspection_result(
             inspection_id=inspection_id,
             rule_id=rule_db_id,
             status=check.status,
-            detected_value=None,
-            expected_value=None,
+            detected_value=check.detected_value,
+            expected_value=check.expected_value,
             message=check.message
         )
 

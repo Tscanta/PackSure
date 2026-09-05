@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .reports-page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .report-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .report-summary-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .report-summary-card span {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .report-summary-card strong {
+            display: block;
+            color: var(--text-primary);
+            font-size: 25px;
+            line-height: 1.2;
+        }
+
+        .report-summary-card small {
+            display: block;
+            margin-top: 6px;
+            color: var(--text-secondary);
+            font-size: 11px;
+        }
+
+        .reports-filter-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .reports-filter-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+            gap: 12px;
+        }
+
+        .report-filter {
+            height: 42px;
+            padding: 0 12px;
+            box-sizing: border-box;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .report-filter:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(15, 139, 141, 0.10);
+        }
+
+        .generate-report-button {
+            min-height: 42px;
+            padding: 0 17px;
+            border: none;
+            border-radius: 8px;
+            background: var(--teal);
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 650;
+            cursor: pointer;
+        }
+
+        .generate-report-button:hover {
+            opacity: 0.92;
+        }
+
+        .reports-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .reports-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reports-panel-header h3 {
+            margin: 0 0 5px;
+            color: var(--text-primary);
+            font-size: 17px;
+        }
+
+        .reports-panel-header p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .report-count {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .reports-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .reports-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        .reports-table th {
+            padding: 13px 18px;
+            text-align: left;
+            background: #F8FAFC;
+            border-bottom: 1px solid var(--border);
+            color: #64748B;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .reports-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid #EDF1F5;
+            color: var(--text-primary);
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .reports-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .reports-table tbody tr:hover {
+            background: #FBFCFD;
+        }
+
+        .report-id {
+            font-weight: 700;
+        }
+
+        .report-product {
+            font-weight: 600;
+        }
+
+        .report-manufacturer {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .report-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .report-status.pass {
+            background: #ECFDF3;
+            color: var(--pass);
+        }
+
+        .report-status.review {
+            background: #FFF7ED;
+            color: var(--review);
+        }
+
+        .report-status.issue {
+            background: #FEF2F2;
+            color: var(--issue);
+        }
+
+        .report-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 11px;
+            border: 1px solid var(--teal);
+            border-radius: 7px;
+            background: #FFFFFF;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .report-action:hover {
+            background: #E8F5F5;
+        }
+
+        .report-empty {
+            display: none;
+            padding: 55px 20px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .report-empty strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .report-message {
+            display: none;
+            margin-top: 14px;
+            padding: 11px 13px;
+            border-radius: 7px;
+            background: #E8F5F5;
+            color: var(--teal);
+            font-size: 12px;
+        }
+
+        @media (max-width: 1000px) {
+            .report-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reports-filter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .report-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .reports-filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">P</div>
+
+            <div class="brand-text">
+                <div class="brand-name">PackSure</div>
+                <div class="brand-tagline">Scan. Verify. Understand.</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="inspections.html" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>Inspections</span>
+            </a>
+
+            <a href="products.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                <span>Products</span>
+            </a>
+
+            <a href="evidence-library.html" class="nav-item">
+                <span class="nav-icon">◈</span>
+                <span>Evidence</span>
+            </a>
+
+            <a href="reports.html" class="nav-item active">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+            </a>
+
+            <a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+            <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">?</span>
+                <span>Help & Support</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="topbar-title">
+                <h1>Reports</h1>
+                <p>Inspection reports and compliance summaries</p>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="notification-button" title="Notifications">
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="user-profile">
+
+                    <div class="user-avatar">
+                        LM
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Legal Metrology</strong>
+                        <span>Inspector</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <section class="page-content reports-page">
+
+            <div class="page-heading">
+
+                <h2>Reports</h2>
+
+                <p>
+                    Generate and review inspection reports based on recorded
+                    findings, evidence and inspector verification.
+                </p>
+
+            </div>
+
+
+            <!-- SUMMARY -->
+            <div class="report-summary">
+
+                <div class="report-summary-card">
+                    <span>Total Reports</span>
+                    <strong>248</strong>
+                    <small>Inspection records</small>
+                </div>
+
+                <div class="report-summary-card">
+                    <span>Compliant</span>
+                    <strong>186</strong>
+                    <small>75% of inspections</small>
+                </div>
+
+                <div class="report-summary-card">
+                    <span>Needs Review</span>
+                    <strong>42</strong>
+                    <small>Requires verification</small>
+                </div>
+
+                <div class="report-summary-card">
+                    <span>Potential Issues</span>
+                    <strong>20</strong>
+                    <small>Flagged for attention</small>
+                </div>
+
+            </div>
+
+
+            <!-- FILTER PANEL -->
+            <div class="reports-filter-panel">
+
+                <div class="reports-filter-grid">
+
+                    <input
+                        type="text"
+                        id="reportSearch"
+                        class="report-filter"
+                        placeholder="Search inspection ID, product or manufacturer..."
+                    >
+
+                    <select id="reportStatusFilter" class="report-filter">
+
+                        <option value="">All Statuses</option>
+                        <option value="PASS">PASS</option>
+                        <option value="REVIEW">REVIEW</option>
+                        <option value="POTENTIAL ISSUE">POTENTIAL ISSUE</option>
+
+                    </select>
+
+                    <select id="reportDateFilter" class="report-filter">
+
+                        <option value="">All Dates</option>
+                        <option value="04 Sep 2026">04 Sep 2026</option>
+                        <option value="03 Sep 2026">03 Sep 2026</option>
+                        <option value="02 Sep 2026">02 Sep 2026</option>
+
+                    </select>
+
+                    <button
+                        type="button"
+                        class="generate-report-button"
+                        id="generateReport"
+                    >
+                        + Generate Report
+                    </button>
+
+                </div>
+
+                <div
+                    class="report-message"
+                    id="reportMessage"
+                >
+                    Report generation is connected to the frontend prototype.
+                    Backend PDF generation can be connected later.
+                </div>
+
+            </div>
+
+
+            <!-- REPORTS TABLE -->
+            <div class="reports-panel">
+
+                <div class="reports-panel-header">
+
+                    <div>
+                        <h3>Inspection Reports</h3>
+                        <p>
+                            Available reports generated from inspection records
+                        </p>
+                    </div>
+
+                    <span
+                        class="report-count"
+                        id="reportCount"
+                    >
+                        5 reports
+                    </span>
+
+                </div>
+
+
+                <div class="reports-table-wrapper">
+
+                    <table class="reports-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Report ID</th>
+                                <th>Product</th>
+                                <th>Inspection Date</th>
+                                <th>Findings</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="reportsTableBody">
+
+
+                            <!-- REPORT 1 -->
+
+                            <tr
+                                class="report-row"
+                                data-search="ins-2026-0248 whole wheat flour grainpure foods pvt ltd"
+                                data-status="PASS"
+                                data-date="04 Sep 2026"
+                            >
+
+                                <td>
+                                    <span class="report-id">
+                                        INS-2026-0248
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="report-product">
+                                        Whole Wheat Flour
+                                    </div>
+
+                                    <div class="report-manufacturer">
+                                        GrainPure Foods Pvt. Ltd.
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    04 Sep 2026
+                                </td>
+
+                                <td>
+                                    0
+                                </td>
+
+                                <td>
+
+                                    <span class="report-status pass">
+                                        PASS
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="inspection-details.html"
+                                        class="report-action"
+                                    >
+                                        View Report
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- REPORT 2 -->
+
+                            <tr
+                                class="report-row"
+                                data-search="ins-2026-0247 premium basmati rice freshharvest foods"
+                                data-status="REVIEW"
+                                data-date="04 Sep 2026"
+                            >
+
+                                <td>
+                                    <span class="report-id">
+                                        INS-2026-0247
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="report-product">
+                                        Premium Basmati Rice
+                                    </div>
+
+                                    <div class="report-manufacturer">
+                                        FreshHarvest Foods
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    04 Sep 2026
+                                </td>
+
+                                <td>
+                                    2
+                                </td>
+
+                                <td>
+
+                                    <span class="report-status review">
+                                        REVIEW
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="inspection-details.html"
+                                        class="report-action"
+                                    >
+                                        View Report
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- REPORT 3 -->
+
+                            <tr
+                                class="report-row"
+                                data-search="ins-2026-0246 packaged drinking water sunrise consumer products"
+                                data-status="POTENTIAL ISSUE"
+                                data-date="03 Sep 2026"
+                            >
+
+                                <td>
+                                    <span class="report-id">
+                                        INS-2026-0246
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="report-product">
+                                        Packaged Drinking Water
+                                    </div>
+
+                                    <div class="report-manufacturer">
+                                        Sunrise Consumer Products
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    03 Sep 2026
+                                </td>
+
+                                <td>
+                                    1
+                                </td>
+
+                                <td>
+
+                                    <span class="report-status issue">
+                                        POTENTIAL ISSUE
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="inspection-details.html"
+                                        class="report-action"
+                                    >
+                                        View Report
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- REPORT 4 -->
+
+                            <tr
+                                class="report-row"
+                                data-search="ins-2026-0245 cooking oil national foods ltd"
+                                data-status="PASS"
+                                data-date="03 Sep 2026"
+                            >
+
+                                <td>
+                                    <span class="report-id">
+                                        INS-2026-0245
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="report-product">
+                                        Cooking Oil
+                                    </div>
+
+                                    <div class="report-manufacturer">
+                                        National Foods Ltd.
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    03 Sep 2026
+                                </td>
+
+                                <td>
+                                    0
+                                </td>
+
+                                <td>
+
+                                    <span class="report-status pass">
+                                        PASS
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="inspection-details.html"
+                                        class="report-action"
+                                    >
+                                        View Report
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- REPORT 5 -->
+
+                            <tr
+                                class="report-row"
+                                data-search="ins-2026-0244 instant coffee brewhouse consumer goods"
+                                data-status="REVIEW"
+                                data-date="02 Sep 2026"
+                            >
+
+                                <td>
+                                    <span class="report-id">
+                                        INS-2026-0244
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="report-product">
+                                        Instant Coffee
+                                    </div>
+
+                                    <div class="report-manufacturer">
+                                        BrewHouse Consumer Goods
+                                    </div>
+
+                                </td>
+
+                                <td>
+                                    02 Sep 2026
+                                </td>
+
+                                <td>
+                                    3
+                                </td>
+
+                                <td>
+
+                                    <span class="report-status review">
+                                        REVIEW
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="inspection-details.html"
+                                        class="report-action"
+                                    >
+                                        View Report
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    class="report-empty"
+                    id="reportEmpty"
+                >
+
+                    <strong>No reports found</strong>
+
+                    Try changing your search or filter criteria.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- REPORT FILTER SCRIPT -->
+
+    <script>
+
+        const reportSearch =
+            document.getElementById("reportSearch");
+
+        const reportStatusFilter =
+            document.getElementById("reportStatusFilter");
+
+        const reportDateFilter =
+            document.getElementById("reportDateFilter");
+
+        const reportRows =
+            document.querySelectorAll(".report-row");
+
+        const reportCount =
+            document.getElementById("reportCount");
+
+        const reportEmpty =
+            document.getElementById("reportEmpty");
+
+        const generateReport =
+            document.getElementById("generateReport");
+
+        const reportMessage =
+            document.getElementById("reportMessage");
+
+
+        function filterReports() {
+
+            const searchValue =
+                reportSearch.value.toLowerCase().trim();
+
+            const statusValue =
+                reportStatusFilter.value;
+
+            const dateValue =
+                reportDateFilter.value;
+
+            let visibleCount = 0;
+
+
+            reportRows.forEach(row => {
+
+                const searchText =
+                    row.dataset.search.toLowerCase();
+
+                const rowStatus =
+                    row.dataset.status;
+
+                const rowDate =
+                    row.dataset.date;
+
+
+                const matchesSearch =
+                    searchText.includes(searchValue);
+
+                const matchesStatus =
+                    !statusValue ||
+                    rowStatus === statusValue;
+
+                const matchesDate =
+                    !dateValue ||
+                    rowDate === dateValue;
+
+
+                if (
+                    matchesSearch &&
+                    matchesStatus &&
+                    matchesDate
+                ) {
+
+                    row.style.display = "";
+                    visibleCount++;
+
+                } else {
+
+                    row.style.display = "none";
+
+                }
+
+            });
+
+
+            reportCount.textContent =
+                visibleCount +
+                (visibleCount === 1
+                    ? " report"
+                    : " reports");
+
+
+            reportEmpty.style.display =
+                visibleCount === 0
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        reportSearch.addEventListener(
+            "input",
+            filterReports
+        );
+
+        reportStatusFilter.addEventListener(
+            "change",
+            filterReports
+        );
+
+        reportDateFilter.addEventListener(
+            "change",
+            filterReports
+        );
+
+
+        generateReport.addEventListener(
+            "click",
+            function () {
+
+                reportMessage.style.display = "block";
+
+                setTimeout(function () {
+
+                    reportMessage.style.display = "none";
+
+                }, 4000);
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

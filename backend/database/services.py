@@ -111,6 +111,9 @@ def list_rules():
             severity=row[7],
             source=row[8],
             effective_date=row[9],
+            legal_reference=None,
+            applicability=None,
+            exceptions=None,
             created_at=row[10]
         )
 
@@ -140,6 +143,9 @@ def find_rule(rule_id):
         severity=row[7],
         source=row[8],
         effective_date=row[9],
+        legal_reference=None,
+        applicability=None,
+        exceptions=None,
         created_at=row[10]
     )
 
@@ -166,10 +172,11 @@ def create_new_inspection(
     # Validate status
     if overall_status not in [
         "COMPLIANT",
-        "NON_COMPLIANT"
+        "NON_COMPLIANT",
+        "REVIEW_REQUIRED"
     ]:
         raise ValueError(
-            "Overall status must be COMPLIANT or NON_COMPLIANT."
+            "Overall status must be COMPLIANT, NON_COMPLIANT, or REVIEW_REQUIRED."
         )
 
     # Validate confidence

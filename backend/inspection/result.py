@@ -1,6 +1,7 @@
 from typing import Optional, Literal
 
 from pydantic import BaseModel, Field
+from backend.models.violation import Violation
 
 
 CheckStatus = Literal[
@@ -43,6 +44,8 @@ class CheckResult(BaseModel):
 
     evidence: Optional[str] = None
 
+    database_rule_id: Optional[int] = None
+
 
 class InspectionResult(BaseModel):
     inspection_id: str
@@ -68,3 +71,5 @@ class InspectionResult(BaseModel):
     checks: list[CheckResult] = Field(
         default_factory=list
     )
+
+    violations: list[Violation] = Field(default_factory=list)

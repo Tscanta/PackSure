@@ -1,0 +1,3012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Review Inspection - PackSure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-mark">
+            P
+        </div>
+
+        <div class="brand-name">
+            PackSure
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">▣</span>
+            <span>Dashboard</span>
+        </a>
+
+
+        <a href="inspections.html" class="nav-item active">
+            <span class="nav-icon">✓</span>
+            <span>Inspections</span>
+        </a>
+
+
+        <a href="products.html" class="nav-item">
+            <span class="nav-icon">□</span>
+            <span>Products</span>
+        </a>
+
+
+        <a href="evidence.html" class="nav-item">
+            <span class="nav-icon">◈</span>
+            <span>Evidence</span>
+        </a>
+
+<a href="analytics.html" class="nav-item">
+    <span class="nav-icon">▥</span>
+    <span>Analytics</span>
+</a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">◫</span>
+            <span>Analytics</span>
+        </a>
+
+
+       <a href="admin-rules.html" class="nav-item">
+    <span class="nav-icon">⚙</span>
+    <span>Admin & Rules</span>
+</a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">?</span>
+            <span>Help & Support</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+        </a>
+
+
+        <a href="#" class="nav-item">
+            <span class="nav-icon">↪</span>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                Review Inspection
+            </h1>
+
+            <p>
+                Verify findings before completing the inspection
+            </p>
+
+        </div>
+
+
+        <div class="topbar-actions">
+
+            <button
+                class="notification-button"
+                type="button">
+                ♢
+            </button>
+
+
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    LM
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Legal Metrology Inspector
+                    </strong>
+
+                    <span>
+                        Inspector
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================= -->
+
+    <div class="page-content">
+
+
+        <!-- BACK -->
+
+        <a href="evidence.html" class="back-link">
+            ← Back to Evidence
+        </a>
+
+
+
+        <!-- PAGE HEADING -->
+
+        <div class="page-heading review-heading">
+
+            <div>
+
+                <h2>
+                    Inspection Review
+                </h2>
+
+                <p>
+                    Review the extracted declarations, validation
+                    results and supporting evidence before recording
+                    the final inspection decision.
+                </p>
+
+            </div>
+
+
+            <span
+                class="status review"
+                id="overallReviewStatus">
+                REVIEW REQUIRED
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             INSPECTION DETAILS
+        ================================================= -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Inspection Details
+                </h2>
+
+                <p>
+                    Information recorded when the inspection was created.
+                </p>
+
+            </div>
+
+
+            <div class="product-info-grid">
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Inspection ID
+                    </span>
+
+                    <strong id="reviewInspectionId">
+                        INS-2026-0249
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Inspection Date
+                    </span>
+
+                    <strong id="reviewDate">
+                        05 Sep 2026
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Location
+                    </span>
+
+                    <strong id="reviewLocation">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Inspection Type
+                    </span>
+
+                    <strong id="reviewInspectionType">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Reference Number
+                    </span>
+
+                    <strong id="reviewReference">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Inspector
+                    </span>
+
+                    <strong>
+                        Legal Metrology Inspector
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-note">
+
+                <strong>
+                    Inspection Notes
+                </strong>
+
+                <p id="reviewNotes">
+                    No inspection notes provided.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCT DETAILS
+        ================================================= -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Product Details
+                </h2>
+
+                <p>
+                    Product information recorded during the inspection.
+                </p>
+
+            </div>
+
+
+            <div class="product-info-grid">
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Product Name
+                    </span>
+
+                    <strong id="reviewProductName">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Manufacturer / Packer
+                    </span>
+
+                    <strong id="reviewManufacturer">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Net Quantity
+                    </span>
+
+                    <strong id="reviewQuantity">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Maximum Retail Price
+                    </span>
+
+                    <strong id="reviewMrp">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Category
+                    </span>
+
+                    <strong id="reviewCategory">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Batch Number
+                    </span>
+
+                    <strong id="reviewBatch">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="product-info-item">
+
+                    <span>
+                        Date of Packing
+                    </span>
+
+                    <strong id="reviewPackingDate">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-note">
+
+                <strong>
+                    Product Notes
+                </strong>
+
+                <p id="reviewProductNotes">
+                    No product notes provided.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PACKAGE EVIDENCE
+        ================================================= -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Package Evidence
+                </h2>
+
+                <p>
+                    Images submitted during the inspection and used
+                    as supporting evidence for validation.
+                </p>
+
+            </div>
+
+
+            <div class="review-evidence-grid">
+
+
+                <div class="review-evidence-card">
+
+                    <div
+                        class="review-evidence-image"
+                        id="reviewFrontImage">
+
+                        <span>
+                            NO IMAGE
+                        </span>
+
+                    </div>
+
+                    <div class="review-evidence-label">
+                        Front Package
+                    </div>
+
+                </div>
+
+
+                <div class="review-evidence-card">
+
+                    <div
+                        class="review-evidence-image"
+                        id="reviewBackImage">
+
+                        <span>
+                            NO IMAGE
+                        </span>
+
+                    </div>
+
+                    <div class="review-evidence-label">
+                        Back Package
+                    </div>
+
+                </div>
+
+
+                <div class="review-evidence-card">
+
+                    <div
+                        class="review-evidence-image"
+                        id="reviewSideImage">
+
+                        <span>
+                            NO IMAGE
+                        </span>
+
+                    </div>
+
+                    <div class="review-evidence-label">
+                        Side Package
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             EXTRACTED DECLARATIONS
+        ================================================= -->
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    Extracted Declarations
+                </h2>
+
+                <p>
+                    Declarations identified from the submitted
+                    package evidence.
+                </p>
+
+            </div>
+
+
+            <div class="declaration-list">
+
+
+                <div class="declaration-row">
+
+                    <div>
+
+                        <strong>
+                            Product Name
+                        </strong>
+
+                        <span id="extractedProductName">
+                            —
+                        </span>
+
+                    </div>
+
+                    <span class="result-badge pass">
+                        EXTRACTED
+                    </span>
+
+                </div>
+
+
+                <div class="declaration-row">
+
+                    <div>
+
+                        <strong>
+                            Net Quantity
+                        </strong>
+
+                        <span id="extractedQuantity">
+                            —
+                        </span>
+
+                    </div>
+
+                    <span class="result-badge pass">
+                        EXTRACTED
+                    </span>
+
+                </div>
+
+
+                <div class="declaration-row">
+
+                    <div>
+
+                        <strong>
+                            Maximum Retail Price
+                        </strong>
+
+                        <span id="extractedMrp">
+                            —
+                        </span>
+
+                    </div>
+
+                    <span class="result-badge pass">
+                        EXTRACTED
+                    </span>
+
+                </div>
+
+
+                <div class="declaration-row">
+
+                    <div>
+
+                        <strong>
+                            Manufacturer / Packer
+                        </strong>
+
+                        <span id="extractedManufacturer">
+                            —
+                        </span>
+
+                    </div>
+
+                    <span class="result-badge pass">
+                        EXTRACTED
+                    </span>
+
+                </div>
+
+
+                <div class="declaration-row">
+
+                    <div>
+
+                        <strong>
+                            Date of Packing
+                        </strong>
+
+                        <span id="extractedPackingDate">
+                            —
+                        </span>
+
+                    </div>
+
+                    <span class="result-badge pass">
+                        EXTRACTED
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             VALIDATION RESULTS
+        ================================================= -->
+
+        <div class="panel">
+
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+
+                <div>
+                    <h2>
+                        Validation Results
+                    </h2>
+
+                    <p>
+                        Checks performed against applicable Legal Metrology packaged-commodity requirements.
+                    </p>
+                </div>
+
+                <div id="complianceScoreContainer" style="display: none; text-align: right;">
+                    <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Compliance Score</div>
+                    <div id="complianceScoreValue" style="font-size: 26px; font-weight: 800; color: var(--teal); line-height: 1.1;">—</div>
+                    <div id="complianceStats" style="font-size: 11px; color: var(--text-secondary); margin-top: 3px;">—</div>
+                </div>
+
+            </div>
+
+            <div id="inspectionAlertBox" style="display: none; margin: 15px 20px; padding: 14px 18px; border-radius: 8px; font-size: 13px;"></div>
+
+            <details id="ocrOutputPanel" style="display: none; margin: 0 20px 15px; padding: 14px 18px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;">
+                <summary style="cursor: pointer; font-weight: 600;">OCR extraction output</summary>
+                <pre id="ocrOutputText" style="white-space: pre-wrap; margin: 12px 0 0; font: 12px/1.5 monospace; color: #334155;"></pre>
+            </details>
+
+            <div class="validation-list" id="validationList">
+
+
+                <!-- PRODUCT NAME -->
+
+                <div class="validation-card pass-card">
+
+                    <div class="validation-indicator">
+                        ✓
+                    </div>
+
+
+                    <div class="validation-content">
+
+                        <strong>
+                            Product Name Declaration
+                        </strong>
+
+                        <p>
+                            Product name was detected in the
+                            submitted package evidence.
+                        </p>
+
+
+                        <div class="validation-meta">
+
+                            <span>
+                                Requirement
+                            </span>
+
+                            <strong>
+                                Required declaration
+                            </strong>
+
+
+                            <span>
+                                What was checked
+                            </span>
+
+                            <strong>
+                                Presence of product name
+                            </strong>
+
+
+                            <span>
+                                Evidence
+                            </span>
+
+                            <strong>
+                                Front package image
+                            </strong>
+
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong>
+                                High
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="status pass">
+                        PASS
+                    </span>
+
+                </div>
+
+
+
+                <!-- QUANTITY -->
+
+                <div class="validation-card pass-card">
+
+                    <div class="validation-indicator">
+                        ✓
+                    </div>
+
+
+                    <div class="validation-content">
+
+                        <strong>
+                            Net Quantity Declaration
+                        </strong>
+
+                        <p>
+                            Net quantity was detected with a
+                            recognized unit declaration.
+                        </p>
+
+
+                        <div class="validation-meta">
+
+                            <span>
+                                Requirement
+                            </span>
+
+                            <strong>
+                                Quantity and unit declaration
+                            </strong>
+
+
+                            <span>
+                                What was checked
+                            </span>
+
+                            <strong>
+                                Quantity value and unit
+                            </strong>
+
+
+                            <span>
+                                Evidence
+                            </span>
+
+                            <strong>
+                                Front package image
+                            </strong>
+
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong>
+                                High
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="status pass">
+                        PASS
+                    </span>
+
+                </div>
+
+
+
+                <!-- MANUFACTURER -->
+
+                <div class="validation-card review-card">
+
+                    <div class="validation-indicator">
+                        !
+                    </div>
+
+
+                    <div class="validation-content">
+
+                        <strong>
+                            Manufacturer / Packer Declaration
+                        </strong>
+
+                        <p>
+                            A manufacturer / packer declaration was
+                            detected. Inspector verification is required
+                            against the applicable requirement.
+                        </p>
+
+
+                        <div class="validation-meta">
+
+                            <span>
+                                Requirement
+                            </span>
+
+                            <strong>
+                                Manufacturer / packer declaration
+                            </strong>
+
+
+                            <span>
+                                What was checked
+                            </span>
+
+                            <strong>
+                                Presence and readability
+                            </strong>
+
+
+                            <span>
+                                Evidence
+                            </span>
+
+                            <strong>
+                                Back package image
+                            </strong>
+
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong>
+                                Medium
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="status review">
+                        REVIEW
+                    </span>
+
+                </div>
+
+
+
+                <!-- MRP -->
+
+                <div class="validation-card pass-card">
+
+                    <div class="validation-indicator">
+                        ✓
+                    </div>
+
+
+                    <div class="validation-content">
+
+                        <strong>
+                            Maximum Retail Price (MRP)
+                        </strong>
+
+                        <p>
+                            Maximum Retail Price was detected on
+                            the submitted package evidence.
+                        </p>
+
+
+                        <div class="validation-meta">
+
+                            <span>
+                                Requirement
+                            </span>
+
+                            <strong>
+                                MRP declaration
+                            </strong>
+
+
+                            <span>
+                                What was checked
+                            </span>
+
+                            <strong>
+                                Presence of MRP declaration
+                            </strong>
+
+
+                            <span>
+                                Evidence
+                            </span>
+
+                            <strong>
+                                Front package image
+                            </strong>
+
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong>
+                                High
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="status pass">
+                        PASS
+                    </span>
+
+                </div>
+
+
+
+                <!-- PACKING DATE -->
+
+                <div class="validation-card pass-card">
+
+                    <div class="validation-indicator">
+                        ✓
+                    </div>
+
+
+                    <div class="validation-content">
+
+                        <strong>
+                            Date of Packing
+                        </strong>
+
+                        <p>
+                            Date of packing was detected in the
+                            submitted package evidence.
+                        </p>
+
+
+                        <div class="validation-meta">
+
+                            <span>
+                                Requirement
+                            </span>
+
+                            <strong>
+                                Date declaration
+                            </strong>
+
+
+                            <span>
+                                What was checked
+                            </span>
+
+                            <strong>
+                                Presence of packing date
+                            </strong>
+
+
+                            <span>
+                                Evidence
+                            </span>
+
+                            <strong>
+                                Back package image
+                            </strong>
+
+
+                            <span>
+                                Confidence
+                            </span>
+
+                            <strong>
+                                High
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <span class="status pass">
+                        PASS
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             POTENTIAL FINDING
+        ================================================= -->
+
+        <div class="panel finding-review-panel" id="findingReviewPanel">
+
+
+            <div class="panel-header">
+
+                <h2>
+                    Potential Finding
+                </h2>
+
+                <p>
+                    A potential compliance issue identified during
+                    validation. Inspector verification is required
+                    before recording the final finding.
+                </p>
+
+            </div>
+
+
+            <!-- FINDING STATUS -->
+
+            <div class="finding-status-banner" id="findingStatusBanner">
+
+                <div class="finding-status-icon" id="findingStatusIcon">
+                    !
+                </div>
+
+
+                <div>
+
+                    <strong id="findingStatusTitle">
+                        Potential Issue Detected
+                    </strong>
+
+                    <p id="findingStatusDescription">
+                        The available package evidence requires
+                        further verification by the inspector.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FINDING DETAILS -->
+
+            <div class="finding-detail">
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        Requirement
+                    </span>
+
+                    <strong id="findingRequirement">
+                        Applicable Legal Metrology declaration requirement
+                    </strong>
+
+                </div>
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        Result
+                    </span>
+
+                    <span class="status issue" id="findingResult">
+                        POTENTIAL ISSUE
+                    </span>
+
+                </div>
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        What Was Checked
+                    </span>
+
+                    <p id="findingChecked">
+                        The submitted package evidence was checked
+                        for the presence, readability and presentation
+                        of the relevant declaration.
+                    </p>
+
+                </div>
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        Evidence Source
+                    </span>
+
+                    <p id="findingEvidence">
+                        Package image evidence
+                    </p>
+
+                </div>
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        Assessment
+                    </span>
+
+                    <p id="findingAssessment">
+                        The validation process identified a condition
+                        that may require compliance review. This
+                        assessment is not a final legal determination.
+                    </p>
+
+                </div>
+
+
+                <div class="finding-section">
+
+                    <span class="finding-label">
+                        Extraction Confidence
+                    </span>
+
+                    <strong id="findingConfidence">
+                        High
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUPPORTING EVIDENCE -->
+
+            <div class="evidence-link-box">
+
+                <div>
+
+                    <strong>
+                        Supporting Evidence
+                    </strong>
+
+                    <span>
+                        Open the submitted package images to inspect
+                        the evidence used for this assessment.
+                    </span>
+
+                </div>
+
+
+                <a href="evidence.html">
+                    View Evidence →
+                </a>
+
+            </div>
+
+
+
+            <!-- NOTICE -->
+
+            <div class="finding-notice">
+
+                <strong>
+                    Inspector Verification Required
+                </strong>
+
+                <p>
+                    This assessment is based on the available evidence
+                    and validation checks. The inspector must review
+                    the evidence and applicable requirement before
+                    confirming or rejecting the finding.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             INSPECTOR VERIFICATION
+        ================================================= -->
+
+        <div class="panel">
+
+
+            <div class="panel-header">
+
+                <h2>
+                    Inspector Verification
+                </h2>
+
+                <p>
+                    The inspector must verify or reject the potential
+                    finding before completing the inspection.
+                </p>
+
+            </div>
+
+
+
+            <!-- DECISION OPTIONS -->
+
+            <div class="verification-options">
+
+
+                <label
+                    class="verification-option"
+                    id="verifyOption">
+
+                    <input
+                        type="radio"
+                        name="findingDecision"
+                        value="verify">
+
+                    <div>
+
+                        <strong>
+                            Verify Finding
+                        </strong>
+
+                        <span>
+                            Confirm that the potential finding is
+                            supported by the available evidence and
+                            applicable requirement.
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+
+                <label
+                    class="verification-option"
+                    id="rejectOption">
+
+                    <input
+                        type="radio"
+                        name="findingDecision"
+                        value="reject">
+
+                    <div>
+
+                        <strong>
+                            Reject Finding
+                        </strong>
+
+                        <span>
+                            Determine that the available evidence
+                            does not support the potential finding.
+                        </span>
+
+                    </div>
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- REMARKS -->
+
+            <div class="form-group">
+
+                <label for="reviewRemarks">
+
+                    Inspector Remarks
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <textarea
+                    id="reviewRemarks"
+                    rows="5"
+                    placeholder="Enter the reason for your verification decision..."></textarea>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+
+            <div class="review-actions">
+
+
+                <a
+                    href="evidence.html"
+                    class="secondary-button">
+
+                    Back
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="completeReview">
+
+                    Complete Review
+
+                </button>
+
+
+            </div>
+
+
+            <!-- FINAL DECISION MESSAGE -->
+
+            <div
+                id="finalDecisionMessage"
+                class="final-decision-message"
+                style="display:none;">
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     PAGE SCRIPT
+===================================================== -->
+
+<script src="api.js"></script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =================================================
+       LOAD STORAGE DATA
+    ================================================= */
+
+    const inspectionData =
+        JSON.parse(localStorage.getItem("packSureInspection")) || {};
+
+    const productData =
+        JSON.parse(localStorage.getItem("packSureProduct")) || {};
+
+    const evidenceData =
+        JSON.parse(localStorage.getItem("packSureEvidence")) || {};
+
+
+    /* =================================================
+       POPULATE INSPECTION DETAILS
+    ================================================= */
+
+    if (inspectionData) {
+        const locEl = document.getElementById("reviewLocation");
+        if (locEl) locEl.textContent = inspectionData.location || "—";
+
+        const typeEl = document.getElementById("reviewInspectionType");
+        if (typeEl) typeEl.textContent = inspectionData.type || "—";
+
+        const refEl = document.getElementById("reviewReference");
+        if (refEl) refEl.textContent = inspectionData.reference || "—";
+
+        const notesEl = document.getElementById("reviewNotes");
+        if (notesEl) notesEl.textContent = inspectionData.notes || "No inspection notes provided.";
+
+        const dateEl = document.getElementById("reviewDate");
+        if (dateEl && inspectionData.date) {
+            dateEl.textContent = inspectionData.date;
+        }
+    }
+
+
+    /* =================================================
+       POPULATE PRODUCT DETAILS
+    ================================================= */
+
+    if (productData) {
+        const nameEl = document.getElementById("reviewProductName");
+        if (nameEl) nameEl.textContent = productData.name || "—";
+
+        const mfgEl = document.getElementById("reviewManufacturer");
+        if (mfgEl) mfgEl.textContent = productData.manufacturer || "—";
+
+        const qtyEl = document.getElementById("reviewQuantity");
+        if (qtyEl) qtyEl.textContent = productData.quantity || "—";
+
+        const mrpEl = document.getElementById("reviewMrp");
+        if (mrpEl) mrpEl.textContent = productData.mrp || "—";
+
+        const catEl = document.getElementById("reviewCategory");
+        if (catEl) catEl.textContent = productData.category || "—";
+
+        const batchEl = document.getElementById("reviewBatch");
+        if (batchEl) batchEl.textContent = productData.batch || "—";
+
+        const dateEl = document.getElementById("reviewPackingDate");
+        if (dateEl) dateEl.textContent = productData.packingDate || "—";
+
+        const pNotesEl = document.getElementById("reviewProductNotes");
+        if (pNotesEl) pNotesEl.textContent = productData.notes || "No product notes provided.";
+
+        // Extracted declarations initial values from manual form
+        const extName = document.getElementById("extractedProductName");
+        if (extName) extName.textContent = productData.name || "—";
+
+        const extQty = document.getElementById("extractedQuantity");
+        if (extQty) extQty.textContent = productData.quantity || "—";
+
+        const extMrp = document.getElementById("extractedMrp");
+        if (extMrp) extMrp.textContent = productData.mrp || "—";
+
+        const extMfg = document.getElementById("extractedManufacturer");
+        if (extMfg) extMfg.textContent = productData.manufacturer || "—";
+
+        const extDate = document.getElementById("extractedPackingDate");
+        if (extDate) extDate.textContent = productData.packingDate || "—";
+    }
+
+
+    /* =================================================
+       DISPLAY EVIDENCE IMAGES
+    ================================================= */
+
+    function displayEvidenceImage(elementId, imageData) {
+        const container = document.getElementById(elementId);
+        if (!container || !imageData) return;
+
+        container.innerHTML = "";
+        const image = document.createElement("img");
+        image.src = imageData;
+        image.alt = "Inspection package evidence";
+        container.appendChild(image);
+        container.classList.add("has-image");
+    }
+
+    if (evidenceData) {
+        displayEvidenceImage("reviewFrontImage", evidenceData.front);
+        displayEvidenceImage("reviewBackImage", evidenceData.back);
+        displayEvidenceImage("reviewSideImage", evidenceData.side);
+    }
+
+
+    /* =================================================
+       HELPER: ESCAPE HTML
+    ================================================= */
+
+    function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =================================================
+       RULE TITLES LOOKUP
+    ================================================= */
+
+    const RULE_TITLES = {
+        "LMPC-001": "Manufacturer / Packer Address Declaration",
+        "LMPC-002": "Net Quantity Declaration",
+        "LMPC-003": "Maximum Retail Price (MRP) Declaration",
+        "LMPC-004": "Consumer Care Details",
+        "LMPC-005": "Date Declaration (Mfg / Pkg / Expiry)",
+        "TEST001": "Product Name Declaration",
+        "LMPC-SCOPE-001": "Retail Package Scope Assessment",
+        "LMPC-EXEMPT-001": "Exemption Assessment (Rule 26)",
+        "LMPC-004-001": "General Declaration Presence",
+        "LMPC-005-001": "Standard Pack Quantity Schedule",
+        "LMPC-006-001": "Commodity Name on PDP",
+        "LMPC-006-002": "Net Quantity PDP Placement",
+        "LMPC-006-003": "Net Quantity Units",
+        "LMPC-006-004": "Date of Manufacture Presentation",
+        "LMPC-006-005": "MRP Inclusive of All Taxes",
+        "LMPC-006-006": "Package Dimensions Declaration",
+        "LMPC-006-007": "Consumer Grievance Redressal Contact",
+        "LMPC-007-001": "Minimum Principal Display Panel Font Height",
+        "LMPC-007-002": "Numeral Height to Width Ratio",
+        "LMPC-008-001": "Principal Display Panel Grouping",
+        "LMPC-008-002": "Clear Background Area Surrounding Declarations",
+        "LMPC-009-001": "Visual Contrast and Legibility",
+        "LMPC-010-001": "Complete Postal Address of Manufacturer",
+    };
+
+
+    /* =================================================
+       UI STATE RENDERING
+    ================================================= */
+
+    function showLoadingState() {
+        const list = document.getElementById("validationList");
+        if (!list) return;
+
+        list.innerHTML = `
+            <div style="text-align: center; padding: 48px 20px;">
+                <div class="spinner"></div>
+                <p style="font-weight: 700; font-size: 15px; margin: 16px 0 6px; color: var(--text-primary);">
+                    Evaluating Legal Metrology Compliance...
+                </p>
+                <p style="font-size: 13px; color: var(--text-secondary); max-width: 440px; margin: 0 auto;">
+                    Processing package image with OCR, extraction parser, and evaluating compliance with Legal Metrology (Packaged Commodities) rules.
+                </p>
+            </div>
+        `;
+    }
+
+    function showErrorState(errorMessage) {
+        const list = document.getElementById("validationList");
+        const alertBox = document.getElementById("inspectionAlertBox");
+
+        const message = errorMessage || "Unable to connect to the inspection server. Please ensure the backend is running.";
+
+        if (alertBox) {
+            alertBox.style.display = "block";
+            alertBox.style.background = "#FEF2F2";
+            alertBox.style.border = "1px solid #FCA5A5";
+            alertBox.style.color = "#991B1B";
+            alertBox.innerHTML = `
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+                    <div>
+                        <strong>Connection Notice</strong>
+                        <p style="margin: 4px 0 0;">${escapeHtml(message)}</p>
+                    </div>
+                    <button id="retryInspectionBtn" class="primary-button" style="padding: 6px 14px; font-size: 12px; white-space: nowrap; flex-shrink: 0;" type="button">
+                        ↻ Retry
+                    </button>
+                </div>
+            `;
+            const retryBtn = document.getElementById("retryInspectionBtn");
+            if (retryBtn) {
+                retryBtn.addEventListener("click", runComplianceInspection);
+            }
+        }
+
+        if (list) {
+            list.innerHTML = `
+                <div style="padding: 36px 20px; text-align: center;">
+                    <div style="font-size: 28px; margin-bottom: 8px;">⚠️</div>
+                    <strong style="color: var(--text-primary); font-size: 15px; display: block; margin-bottom: 6px;">
+                        Inspection Suspended
+                    </strong>
+                    <p style="color: var(--text-secondary); font-size: 13px; max-width: 480px; margin: 0 auto 16px;">
+                        ${escapeHtml(message)}
+                    </p>
+                    <button id="retryInspectionBtn2" class="primary-button" type="button">
+                        ↻ Retry Inspection
+                    </button>
+                </div>
+            `;
+            const retryBtn2 = document.getElementById("retryInspectionBtn2");
+            if (retryBtn2) {
+                retryBtn2.addEventListener("click", runComplianceInspection);
+            }
+        }
+    }
+
+
+    /* =================================================
+       RENDER INSPECTION RESULTS
+    ================================================= */
+
+    function renderInspectionResults(result) {
+        if (!result) return;
+
+        // 1. UPDATE INSPECTION ID
+        const idEl = document.getElementById("reviewInspectionId");
+        if (idEl && result.inspection_id) {
+            idEl.textContent = result.inspection_id;
+        }
+
+        // 2. UPDATE OVERALL STATUS BADGE
+        const overallStatusEl = document.getElementById("overallReviewStatus");
+        if (overallStatusEl) {
+            const status = result.overall_status || "REVIEW_REQUIRED";
+            overallStatusEl.textContent = status.replace(/_/g, " ");
+
+            if (status === "COMPLIANT") {
+                overallStatusEl.className = "status pass";
+            } else if (status === "NON_COMPLIANT") {
+                overallStatusEl.className = "status issue";
+            } else {
+                overallStatusEl.className = "status review";
+            }
+        }
+
+        // 3. UPDATE SCORE
+        const scoreContainer = document.getElementById("complianceScoreContainer");
+        const scoreValue = document.getElementById("complianceScoreValue");
+        const statsEl = document.getElementById("complianceStats");
+
+        if (scoreContainer && scoreValue) {
+            scoreContainer.style.display = "block";
+            const scoreNum = Math.round(result.score !== undefined ? result.score : 0);
+            scoreValue.textContent = scoreNum + "%";
+            if (statsEl) {
+                statsEl.textContent = `${result.passed_checks || 0} passed · ${result.failed_checks || 0} failed · ${result.review_checks || 0} review`;
+            }
+        }
+
+        // 4. SHOW OCR OUTPUT AND EXTRACTED DECLARATIONS
+        const ocrPanel = document.getElementById("ocrOutputPanel");
+        const ocrText = document.getElementById("ocrOutputText");
+        if (ocrPanel && ocrText && result.ocr_text) {
+            ocrText.textContent = result.ocr_text;
+            ocrPanel.style.display = "block";
+        }
+
+        const extracted = result.extracted_product || {};
+        const extractedFields = {
+            extractedProductName: extracted.product_name,
+            extractedQuantity: extracted.net_quantity,
+            extractedMrp: extracted.mrp,
+            extractedManufacturer: extracted.manufacturer,
+            extractedPackingDate: extracted.manufacturing_date || extracted.best_before,
+        };
+        Object.entries(extractedFields).forEach(function ([elementId, value]) {
+            const element = document.getElementById(elementId);
+            if (element && value !== null && value !== undefined && value !== "") {
+                element.textContent = value;
+            }
+        });
+
+        // 5. UPDATE EXTRACTED DECLARATIONS FROM CHECK VALUES
+        const checks = result.checks || [];
+        checks.forEach(function (c) {
+            if (!c.detected_value) return;
+
+            if (c.field === "product_name") {
+                const el = document.getElementById("extractedProductName");
+                if (el) el.textContent = c.detected_value;
+            } else if (c.field === "net_quantity") {
+                const el = document.getElementById("extractedQuantity");
+                if (el) el.textContent = c.detected_value;
+            } else if (c.field === "mrp") {
+                const el = document.getElementById("extractedMrp");
+                if (el) el.textContent = c.detected_value;
+            } else if (c.field === "manufacturer_address" || c.field === "manufacturer") {
+                const el = document.getElementById("extractedManufacturer");
+                if (el) el.textContent = c.detected_value;
+            } else if (c.field === "date" || c.field === "manufacturing_date") {
+                const el = document.getElementById("extractedPackingDate");
+                if (el) el.textContent = c.detected_value;
+            }
+        });
+
+        // 6. RENDER VALIDATION CARDS
+        const list = document.getElementById("validationList");
+        if (list) {
+            list.innerHTML = "";
+
+            // Sort checks so core LMPC-001 through LMPC-005 appear at the top
+            const coreLmpc = ["LMPC-001", "LMPC-002", "LMPC-003", "LMPC-004", "LMPC-005"];
+            const sortedChecks = [...checks].sort(function (a, b) {
+                const aIdx = coreLmpc.indexOf(a.rule_id);
+                const bIdx = coreLmpc.indexOf(b.rule_id);
+
+                if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+                if (aIdx !== -1) return -1;
+                if (bIdx !== -1) return 1;
+
+                // Then failed checks first
+                if (a.status === "FAIL" && b.status !== "FAIL") return -1;
+                if (b.status === "FAIL" && a.status !== "FAIL") return 1;
+                return 0;
+            });
+
+            sortedChecks.forEach(function (check) {
+                const card = document.createElement("div");
+                const isPass = check.status === "PASS";
+                const isFail = check.status === "FAIL";
+                const isReview = check.status === "REVIEW" || check.status === "WARNING";
+
+                const cardClass = isPass ? "pass-card" : isFail ? "fail-card" : "review-card";
+                const statusClass = isPass ? "pass" : isFail ? "issue" : "review";
+                const icon = isPass ? "✓" : isFail ? "✕" : "!";
+
+                const title = RULE_TITLES[check.rule_id] ||
+                    (check.field ? check.field.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase()) + " Declaration" : "Legal Metrology Rule");
+
+                card.className = `validation-card ${cardClass}`;
+                card.innerHTML = `
+                    <div class="validation-indicator">
+                        ${icon}
+                    </div>
+
+                    <div class="validation-content">
+                        <strong>
+                            ${escapeHtml(title)}
+                        </strong>
+
+                        <p>
+                            ${escapeHtml(check.message || "Declaration evaluated against packaged commodity rules.")}
+                        </p>
+
+                        <div class="validation-meta">
+                            <span>Rule ID</span>
+                            <strong>${escapeHtml(check.rule_id || "LMPC")}</strong>
+
+                            <span>Requirement</span>
+                            <strong>${check.mandatory ? "Mandatory Legal Metrology Rule" : "Supplementary Packaging Standard"}</strong>
+
+                            <span>Detected Value</span>
+                            <strong>${escapeHtml(check.detected_value || "—")}</strong>
+
+                            <span>Severity</span>
+                            <strong>${escapeHtml(check.severity || "Standard")}</strong>
+                        </div>
+                    </div>
+
+                    <span class="status ${statusClass}">
+                        ${escapeHtml(check.status)}
+                    </span>
+                `;
+
+                list.appendChild(card);
+            });
+        }
+
+        // 6. UPDATE POTENTIAL FINDING PANEL
+        updateFindingPanel(result);
+
+        // Store live result in localStorage
+        try {
+            localStorage.setItem("packSureLiveResult", JSON.stringify(result));
+        } catch (e) {}
+    }
+
+
+    /* =================================================
+       UPDATE POTENTIAL FINDING PANEL
+    ================================================= */
+
+    function updateFindingPanel(result) {
+        const banner = document.getElementById("findingStatusBanner");
+        const icon = document.getElementById("findingStatusIcon");
+        const title = document.getElementById("findingStatusTitle");
+        const desc = document.getElementById("findingStatusDescription");
+        const req = document.getElementById("findingRequirement");
+        const resBadge = document.getElementById("findingResult");
+        const checked = document.getElementById("findingChecked");
+        const assess = document.getElementById("findingAssessment");
+
+        if (!banner || !result) return;
+
+        const checks = result.checks || [];
+        const failedCheck = checks.find(c => c.status === "FAIL");
+        const reviewCheck = checks.find(c => c.status === "REVIEW" || c.status === "WARNING");
+
+        if (failedCheck) {
+            banner.className = "finding-status-banner";
+            if (icon) {
+                icon.textContent = "✕";
+                icon.style.background = "#FEF2F2";
+                icon.style.color = "#DC2626";
+            }
+            if (title) title.textContent = "Non-Compliance Issue Detected";
+            if (desc) desc.textContent = "The package declaration fails mandatory Legal Metrology requirements.";
+            if (resBadge) {
+                resBadge.className = "status issue";
+                resBadge.textContent = "NON-COMPLIANT";
+            }
+            if (req) {
+                req.textContent = `${failedCheck.rule_id || "LMPC"}: ${RULE_TITLES[failedCheck.rule_id] || failedCheck.field}`;
+            }
+            if (checked) checked.textContent = failedCheck.message;
+            if (assess) {
+                assess.textContent = `Severity: ${failedCheck.severity || "HIGH"}. Detected: "${failedCheck.detected_value || "None"}". Statutory corrective action required before package distribution.`;
+            }
+        } else if (reviewCheck) {
+            banner.className = "finding-status-banner";
+            if (icon) {
+                icon.textContent = "!";
+                icon.style.background = "#FFF4E5";
+                icon.style.color = "#B45309";
+            }
+            if (title) title.textContent = "Inspector Verification Required";
+            if (desc) desc.textContent = "The declaration was detected with medium confidence and requires officer verification.";
+            if (resBadge) {
+                resBadge.className = "status review";
+                resBadge.textContent = "REVIEW REQUIRED";
+            }
+            if (req) {
+                req.textContent = `${reviewCheck.rule_id || "LMPC"}: ${RULE_TITLES[reviewCheck.rule_id] || reviewCheck.field}`;
+            }
+            if (checked) checked.textContent = reviewCheck.message;
+            if (assess) {
+                assess.textContent = `Declaration present with value "${reviewCheck.detected_value || "extracted"}". Verify against package specimen before final clearance.`;
+            }
+        } else {
+            // FULLY COMPLIANT
+            banner.className = "finding-status-banner";
+            banner.style.borderLeftColor = "var(--pass)";
+            if (icon) {
+                icon.textContent = "✓";
+                icon.style.background = "#EAF7EF";
+                icon.style.color = "#15803D";
+            }
+            if (title) title.textContent = "Full Compliance Verified";
+            if (desc) desc.textContent = "Commodity satisfies tested statutory labeling and packaging declarations under Legal Metrology.";
+            if (resBadge) {
+                resBadge.className = "status pass";
+                resBadge.textContent = "COMPLIANT";
+            }
+            if (req) {
+                req.textContent = "Legal Metrology (Packaged Commodities) Rules, 2011";
+            }
+            if (checked) {
+                checked.textContent = "All 5 mandatory declarations (Manufacturer Address, Net Quantity, MRP, Consumer Care, Date) verified.";
+            }
+            if (assess) {
+                assess.textContent = "No compliance violations detected. Ready for inspector endorsement.";
+            }
+        }
+    }
+
+
+    /* =================================================
+       MAIN INSPECTION EXECUTION
+    ================================================= */
+
+    async function runComplianceInspection() {
+        showLoadingState();
+
+        const alertBox = document.getElementById("inspectionAlertBox");
+        if (alertBox) alertBox.style.display = "none";
+
+        try {
+            let result = null;
+
+            // 1. Check if evidence images were uploaded
+            const frontImg = evidenceData.front;
+            const backImg = evidenceData.back;
+            const sideImg = evidenceData.side;
+            const primaryImage = frontImg || backImg || sideImg;
+
+            if (primaryImage && typeof primaryImage === "string" && primaryImage.startsWith("data:")) {
+                const blob = PackSureAPI.dataUrlToBlob(primaryImage);
+                if (blob) {
+                    result = await PackSureAPI.inspectImage(blob, productData);
+                }
+            }
+
+            // 2. If no image or image upload returned null, fall back to JSON ProductInput
+            if (!result) {
+                const payload = {
+                    product_name: productData.name || "Packaged Commodity",
+                    product_category: productData.category || "PACKAGED_COMMODITY",
+                    manufacturer: productData.manufacturer || null,
+                    net_quantity: productData.quantity || null,
+                    mrp: productData.mrp || null,
+                    batch_number: productData.batch || null,
+                    manufacturing_date: productData.packingDate || null,
+                };
+                result = await PackSureAPI.inspectProduct(payload);
+            }
+
+            renderInspectionResults(result);
+
+        } catch (err) {
+            console.error("Compliance inspection execution error:", err);
+            showErrorState(err.message || "Failed to communicate with the compliance inspection engine.");
+        }
+    }
+
+    // Trigger compliance inspection automatically on load
+    runComplianceInspection();
+
+
+    /* =================================================
+       VERIFICATION OPTIONS
+    ================================================= */
+
+    const verificationOptions =
+        document.querySelectorAll(".verification-option");
+
+    verificationOptions.forEach(function (option) {
+        option.addEventListener("click", function () {
+            verificationOptions.forEach(function (item) {
+                item.classList.remove("selected");
+            });
+            option.classList.add("selected");
+        });
+    });
+
+
+    /* =================================================
+       COMPLETE REVIEW
+    ================================================= */
+
+    const completeReview =
+        document.getElementById("completeReview");
+
+    if (completeReview) {
+        completeReview.addEventListener("click", function () {
+            const selectedDecision =
+                document.querySelector('input[name="findingDecision"]:checked');
+
+            const remarks =
+                document.getElementById("reviewRemarks");
+
+            const message =
+                document.getElementById("finalDecisionMessage");
+
+            if (!selectedDecision) {
+                message.style.display = "block";
+                message.className = "final-decision-message error-message";
+                message.textContent = "Please select Verify Finding or Reject Finding.";
+                return;
+            }
+
+            if (!remarks.value.trim()) {
+                message.style.display = "block";
+                message.className = "final-decision-message error-message";
+                message.textContent = "Please enter inspector remarks before completing the review.";
+                remarks.focus();
+                return;
+            }
+
+            const decision = selectedDecision.value;
+            const decisionLabel = decision === "verify" ? "Finding Verified" : "Finding Rejected";
+            const finalStatus = decision === "verify" ? "POTENTIAL ISSUE" : "PASS";
+
+            const reviewData = {
+                decision: decision,
+                decisionLabel: decisionLabel,
+                finalStatus: finalStatus,
+                remarks: remarks.value.trim(),
+                completedAt: new Date().toISOString(),
+            };
+
+            localStorage.setItem("packSureReview", JSON.stringify(reviewData));
+
+            message.style.display = "block";
+            message.className = decision === "verify"
+                ? "final-decision-message success-issue"
+                : "final-decision-message success-pass";
+
+            message.innerHTML =
+                "<strong>" + decisionLabel + "</strong>" +
+                "<span>The inspector decision has been recorded.</span>";
+
+            const overallStatus = document.getElementById("overallReviewStatus");
+            if (overallStatus) {
+                if (decision === "verify") {
+                    overallStatus.textContent = "FINDING VERIFIED";
+                    overallStatus.className = "status issue";
+                } else {
+                    overallStatus.textContent = "REVIEW COMPLETED";
+                    overallStatus.className = "status pass";
+                }
+            }
+
+            document.querySelectorAll('input[name="findingDecision"]').forEach(function (radio) {
+                radio.disabled = true;
+            });
+
+            remarks.disabled = true;
+            completeReview.disabled = true;
+            completeReview.textContent = "Review Completed";
+
+            setTimeout(function () {
+                window.location.href = "inspections.html";
+            }, 1500);
+        });
+    }
+
+});
+
+</script>
+
+
+
+
+<!-- =====================================================
+     PAGE-SPECIFIC STYLES
+===================================================== -->
+
+<style>
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.review-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 24px;
+
+}
+
+
+
+/* =====================================================
+   EVIDENCE
+===================================================== */
+
+.review-evidence-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.review-evidence-card {
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+}
+
+
+.review-evidence-image {
+
+    height: 180px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eef3f6;
+
+    color: #64748B;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+}
+
+
+.review-evidence-image.has-image {
+
+    padding: 0;
+
+    background: #F8FAFC;
+
+}
+
+
+.review-evidence-image.has-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+
+}
+
+
+.review-evidence-label {
+
+    padding: 14px 16px;
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+}
+
+
+
+/* =====================================================
+   DECLARATIONS
+===================================================== */
+
+.declaration-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+.declaration-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 0;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.declaration-row:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.declaration-row > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.declaration-row strong {
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+}
+
+
+.declaration-row span {
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+
+}
+
+
+.result-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.result-badge.pass {
+
+    background: #EAF7EF;
+
+    color: #15803D;
+
+}
+
+
+
+/* =====================================================
+   VALIDATION RESULTS
+===================================================== */
+
+.validation-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+.validation-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+}
+
+
+.validation-indicator {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-weight: 700;
+
+}
+
+
+.pass-card .validation-indicator {
+
+    background: #EAF7EF;
+
+    color: #15803D;
+
+}
+
+
+.review-card .validation-indicator {
+
+    background: #FFF4E5;
+
+    color: #B45309;
+
+}
+
+
+.validation-content {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.validation-content > strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+}
+
+
+.validation-content > p {
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.validation-meta {
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr;
+
+    gap: 5px 12px;
+
+    margin-top: 12px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid var(--border);
+
+    font-size: 12px;
+
+}
+
+
+.validation-meta span {
+
+    color: var(--text-secondary);
+
+}
+
+
+.validation-meta strong {
+
+    color: var(--text-primary);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+
+/* =====================================================
+   POTENTIAL FINDING
+===================================================== */
+
+.finding-review-panel {
+
+    border-left:
+        4px solid var(--review);
+
+}
+
+
+.finding-status-banner {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 16px 18px;
+
+    margin-bottom: 24px;
+
+    border:
+        1px solid #F1D6A8;
+
+    border-radius: 9px;
+
+    background: #FFF9EF;
+
+}
+
+
+.finding-status-icon {
+
+    width: 36px;
+
+    height: 36px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #FFF0D6;
+
+    color: #B45309;
+
+    font-weight: 800;
+
+}
+
+
+.finding-status-banner strong {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #92400E;
+
+    font-size: 14px;
+
+}
+
+
+.finding-status-banner p {
+
+    margin: 0;
+
+    color: #92400E;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.finding-detail {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 24px;
+
+}
+
+
+.finding-section {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.finding-label {
+
+    color: var(--text-secondary);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+
+}
+
+
+.finding-section strong {
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+}
+
+
+.finding-section p {
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+
+/* =====================================================
+   EVIDENCE LINK
+===================================================== */
+
+.evidence-link-box {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 24px;
+
+    padding: 16px 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: #F8FAFC;
+
+}
+
+
+.evidence-link-box > div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.evidence-link-box strong {
+
+    color: var(--text-primary);
+
+    font-size: 13px;
+
+}
+
+
+.evidence-link-box span {
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.evidence-link-box a {
+
+    color: var(--teal);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+}
+
+
+.evidence-link-box a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+
+/* =====================================================
+   FINDING NOTICE
+===================================================== */
+
+.finding-notice {
+
+    margin-top: 20px;
+
+    padding: 16px 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: #F8FAFC;
+
+}
+
+
+.finding-notice strong {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--text-primary);
+
+    font-size: 13px;
+
+}
+
+
+.finding-notice p {
+
+    margin: 0;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+
+/* =====================================================
+   VERIFICATION
+===================================================== */
+
+.verification-options {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-bottom: 24px;
+
+}
+
+
+.verification-option {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 14px;
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease;
+
+}
+
+
+.verification-option:hover {
+
+    border-color: var(--teal);
+
+    background: #F8FAFC;
+
+}
+
+
+.verification-option.selected {
+
+    border-color: var(--teal);
+
+    background: #F4FBFB;
+
+}
+
+
+.verification-option input {
+
+    margin-top: 3px;
+
+}
+
+
+.verification-option div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+}
+
+
+.verification-option strong {
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+}
+
+
+.verification-option span {
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.review-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 24px;
+
+}
+
+
+
+/* =====================================================
+   FINAL DECISION MESSAGE
+===================================================== */
+
+.final-decision-message {
+
+    margin-top: 18px;
+
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.final-decision-message strong {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+}
+
+
+.final-decision-message span {
+
+    display: block;
+
+}
+
+
+.error-message {
+
+    border:
+        1px solid #FECACA;
+
+    background: #FEF2F2;
+
+    color: #991B1B;
+
+}
+
+
+.success-pass {
+
+    border:
+        1px solid #BBE7C8;
+
+    background: #F0FAF3;
+
+    color: #166534;
+
+}
+
+
+.success-issue {
+
+    border:
+        1px solid #F5C2C2;
+
+    background: #FEF2F2;
+
+    color: #991B1B;
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .review-evidence-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .finding-detail {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .review-heading {
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .validation-card {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .validation-card > .status {
+
+        margin-left: 50px;
+
+    }
+
+
+    .validation-meta {
+
+        grid-template-columns: 1fr;
+
+        gap: 3px;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .declaration-row {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .finding-status-banner {
+
+        align-items: flex-start;
+
+    }
+
+
+    .evidence-link-box {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .review-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+
+    }
+
+
+    .review-actions .secondary-button,
+
+    .review-actions .primary-button {
+
+        width: 100%;
+
+    }
+
+}
+
+.fail-card .validation-indicator, .issue-card .validation-indicator {
+    background: #FEF2F2 !important;
+    color: #DC2626 !important;
+}
+
+.spinner {
+    width: 38px;
+    height: 38px;
+    margin: 0 auto;
+    border: 3px solid #E2E8F0;
+    border-top: 3px solid var(--teal, #0F8B8D);
+    border-radius: 50%;
+    animation: packsurespin 0.8s linear infinite;
+}
+
+@keyframes packsurespin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+</style>
+
+</body>
+
+</html>

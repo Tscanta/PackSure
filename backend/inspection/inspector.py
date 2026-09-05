@@ -1,10 +1,11 @@
 from uuid import uuid4
 
 from schemas.product import ProductInput
-from schemas.inspection import CheckResult, InspectionResult
+from backend.inspection.result import CheckResult, InspectionResult
 
 from backend.inspection.rule_repository import get_compliance_rules
-from backend.inspection.validator_registry import VALIDATOR_REGISTRY
+from backend.inspection.field_validator import evaluate_rule
+from backend.models.violation import Violation
 
 
 class InspectionEngine:
@@ -15,7 +16,7 @@ class InspectionEngine:
         # LOAD RULES FROM DATABASE
         # ------------------------------------------------------------
 
-        rules = get_compliance_rules()
+        rules = get_compliance_rules(product)
 
         checks: list[CheckResult] = []
 
@@ -25,49 +26,7 @@ class InspectionEngine:
 
         for rule in rules:
 
-            validation_type = rule["validation_type"]
-
-            validator = VALIDATOR_REGISTRY.get(
-                validation_type
-            )
-
-            # --------------------------------------------------------
-            # NO VALIDATOR FOUND
-            # --------------------------------------------------------
-
-            if validator is None:
-
-                checks.append(
-                    CheckResult(
-                        field=rule["category"],
-                        status="WARNING",
-                        message=(
-                            "No validator implemented for "
-                            f"validation type: {validation_type}"
-                        ),
-                        rule_id=rule["rule_id"],
-                        severity=rule["severity"],
-                        mandatory=rule["mandatory"]
-                    )
-                )
-
-                continue
-
-            # --------------------------------------------------------
-            # RUN VALIDATOR
-            # --------------------------------------------------------
-
-            result = validator(product)
-
-            # --------------------------------------------------------
-            # ADD DATABASE RULE INFORMATION
-            # --------------------------------------------------------
-
-            result.rule_id = rule["rule_id"]
-            result.severity = rule["severity"]
-            result.mandatory = rule["mandatory"]
-
-            checks.append(result)
+            checks.append(evaluate_rule(product, rule))
 
         # ------------------------------------------------------------
         # COUNT RESULTS
@@ -90,8 +49,22 @@ class InspectionEngine:
         warning_checks = sum(
             1
             for check in checks
-            if check.status == "WARNING"
+            if check.status in {"WARNING", "REVIEW"}
         )
+
+        violations = [
+            Violation(
+                field=check.field,
+                rule_id=check.rule_id or "",
+                message=check.message,
+                expected_value=check.expected_value,
+                actual_value=check.detected_value,
+                severity=check.severity,
+                database_rule_id=check.database_rule_id,
+            )
+            for check in checks
+            if check.status == "FAIL"
+        ]
 
         # ------------------------------------------------------------
         # SEVERITY-WEIGHTED SCORE
@@ -194,5 +167,7 @@ class InspectionEngine:
 
             warning_checks=warning_checks,
 
-            checks=checks
+            checks=checks,
+
+            violations=violations
         )
