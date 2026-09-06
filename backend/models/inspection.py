@@ -17,3 +17,4 @@ class InspectionResult:
     warning_checks: int
     checks: list[Any] = field(default_factory=list)
     violations: list[Violation] = field(default_factory=list)
+    
