@@ -6,19 +6,37 @@
 const PackSureAPI = (function () {
     // Configurable base URL: can be set via window.PACKSURE_API_URL or localStorage
     const getBaseUrl = function () {
-        if (typeof window !== "undefined" && window.PACKSURE_API_URL) {
-            return window.PACKSURE_API_URL.replace(/\/+$/, "");
+    // Explicit API URL has highest priority
+    if (typeof window !== "undefined" && window.PACKSURE_API_URL) {
+        return window.PACKSURE_API_URL.replace(/\/+$/, "");
+    }
+
+    // Saved API URL
+    try {
+        const storedUrl = localStorage.getItem("packSureApiUrl");
+        if (storedUrl) {
+            return storedUrl.replace(/\/+$/, "");
         }
-        try {
-            const storedUrl = localStorage.getItem("packSureApiUrl");
-            if (storedUrl) {
-                return storedUrl.replace(/\/+$/, "");
-            }
-        } catch (e) {
-            // Ignore storage access issues
-        }
+    } catch (e) {
+        // Ignore storage access issues
+    }
+
+    // Local development
+    if (
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+         window.location.hostname === "127.0.0.1")
+    ) {
         return "http://localhost:8000";
-    };
+    }
+
+    // Production: use the same domain as the frontend
+    if (typeof window !== "undefined") {
+        return window.location.origin;
+    }
+
+    return "http://localhost:8000";
+};
 
     /**
      * Converts a base64 DataURL to a Blob
