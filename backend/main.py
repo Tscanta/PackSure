@@ -1,6 +1,7 @@
 from io import BytesIO
 from pathlib import Path
 
+from fastapi.responses import RedirectResponse
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -96,10 +97,7 @@ async def _extract_uploaded_product(file: UploadFile):
 
 @app.get("/")
 def root():
-    return {
-        "message": "Legal Metrology Compliance API is running!"
-    }
-
+        return RedirectResponse(url="/app/", status_code=307)
 
 # ============================================================
 # GET ALL PRODUCTS
